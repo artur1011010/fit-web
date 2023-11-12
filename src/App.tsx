@@ -16,7 +16,6 @@ import {ErrorPage} from "./components/error/ErrorPage";
 import {Trainings} from "./components/trainers/Training";
 import {Trainers} from "./components/trainers/Trainers";
 import {Search} from "./components/Search";
-import {Gender} from "./dto/Gender";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +39,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
     },
     {
-        path: "blog",
+        path: "changelist",
         element: <Blog/>,
         errorElement: <ErrorPage/>,
     },
@@ -68,16 +67,7 @@ const router = createBrowserRouter([
 
 store.dispatch({
     type: "SET_USER",
-    payload: {
-        id: 1,
-        name: "John Doe",
-        email: "john.doe@example.com",
-        phoneNumber: "+15555555555",
-        gender: Gender.M,
-        dateOfBirth: new Date("1990-01-01"),
-        trainer: null,
-        client: null,
-    },
+    payload: {},
 });
 
 function App() {
