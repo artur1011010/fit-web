@@ -13,3 +13,18 @@ export interface UserDto {
     trainer?: TrainerDto;
     client?: ClientDto;
 }
+
+export const getEmptyUserDto = () => {
+    const userDto: UserDto = {
+        id: 0,
+        name: '',
+        email: '',
+        phoneNumber: '',
+        avatar: undefined,
+        gender: Gender.M,
+        dateOfBirth: undefined,
+        trainer: undefined,
+        client: undefined,
+    };
+    return userDto;
+}

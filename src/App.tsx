@@ -16,6 +16,8 @@ import {ErrorPage} from "./components/error/ErrorPage";
 import {Trainings} from "./components/trainers/Training";
 import {Trainers} from "./components/trainers/Trainers";
 import {Search} from "./components/Search";
+import {Login} from "./components/user/account/Login";
+import {Register} from "./components/user/account/Register";
 
 const router = createBrowserRouter([
     {
@@ -63,12 +65,27 @@ const router = createBrowserRouter([
         element: <Search/>,
         errorElement: <ErrorPage/>,
     },
+    {
+        path: "login",
+        element: <Login/>,
+        errorElement: <ErrorPage/>,
+    },
+    {
+        path: "register",
+        element: <Register/>,
+        errorElement: <ErrorPage/>,
+    },
 ]);
 
 store.dispatch({
     type: "SET_USER",
     payload: {},
 });
+
+store.dispatch({
+    type: "SET_AUTH",
+    payload: {isLogged : false},
+})
 
 function App() {
     return (

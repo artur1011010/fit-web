@@ -13,6 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {Link, Paper} from "@mui/material";
+import {RootState} from "../../config/store";
+import {useSelector} from "react-redux";
+import {Fragment, useEffect, useRef} from "react";
+import {isUserLogged} from "../../config/storage";
+import {subscribe, unsubscribe} from "../../services/events";
+import { AccountCircle } from '@mui/icons-material';
 
 interface Page {
     definition: string;
@@ -26,11 +32,15 @@ const pages: Page[] = [
     {definition: "Changelist", site: "/changelist"},
 ];
 
-const settings: Page[] = [
+const settingsLogged: Page[] = [
     {definition: 'Profil', site: '/profile'},
     {definition: 'Konto', site: '/account'},
     {definition: 'Panel', site: '/panel'},
     {definition: 'Wylogowanie', site: '/logout'}];
+
+const settings: Page[] = [
+    {definition: 'Zaloguj', site: '/login'},
+    {definition: 'Zarejestruj', site: '/register'}];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -43,6 +53,10 @@ function ResponsiveAppBar() {
         setAnchorElUser(event.currentTarget);
     };
 
+    const handleLoginButton = (event: React.MouseEvent<HTMLElement>) => {
+        console.log("handle login button")
+    };
+
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
@@ -50,6 +64,69 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const handleEvent = () => {
+        console.log("updateing state")
+    }
+
+    useEffect(() => {
+        window.addEventListener("auth_update", handleEvent);
+        return () => {
+            window.removeEventListener("auth_update", handleEvent);
+        };
+    }, []);
+
+    const getAvatarIconWhenLogged = () => {
+        return (
+            <Fragment>
+                <Tooltip title="Ustawienia profilu">
+                    {/*<IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>*/}
+                    {/*    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>*/}
+                    {/*</IconButton>*/}
+
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenUserMenu}
+                        color="inherit"
+                    >
+                        <AccountCircle fontSize={"large"}/>
+                    </IconButton>
+                </Tooltip>
+                <Menu
+                    sx={{mt: '45px'}}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                >
+
+                    {isUserLogged() ? settingsLogged.map((setting) => (
+                        <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
+                            <Link textAlign="center" href={setting.site} underline="hover"
+                                  variant='body2'>{setting.definition}</Link>
+                        </MenuItem>
+                    )) : settings.map((setting) => (
+                        <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
+                            <Link textAlign="center" href={setting.site} underline="hover"
+                                  variant='body2'>{setting.definition}</Link>
+                        </MenuItem>
+                    ))}
+                </Menu>
+            </Fragment>
+        )
+    }
 
     return (
         <Paper elevation={4}>
@@ -144,34 +221,7 @@ function ResponsiveAppBar() {
                         </Box>
 
                         <Box sx={{flexGrow: 0}}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{mt: '45px'}}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
-                                        <Link textAlign="center" href={setting.site} underline="hover"
-                                              variant='body2'>{setting.definition}</Link>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                            {getAvatarIconWhenLogged()}
                         </Box>
                     </Toolbar>
                 </Container>
