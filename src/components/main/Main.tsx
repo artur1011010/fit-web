@@ -42,43 +42,9 @@ export function Main() {
         });
     }
 
-    const loginUser1 = () => {
-        const req: AuthenticationRequest = {
-            email: "ddsdsdsd@gmail.com",
-            password: "artur",
-        };
-        loginUser(req)
-            .then(res => {
-                store.dispatch({
-                    type: "SET_AUTH",
-                    payload: {
-                        access_token : res.access_token,
-                        refresh_token : res.refresh_token,
-                        isLogged: true
-                    },
-                });
-                console.log(res);
-            });
-    }
-
-    const registerUser1 = () => {
-        const req: RegisterRequest = {
-            name: "artur",
-            email: "ddsdsdsd@gmail.com",
-            password: "artur",
-        };
-        registerUser(req)
-            .then(res => {
-                console.log(res);
-            });
-    }
-    const getUserData1 = () => {
-        console.log("authDto: " + JSON.stringify(authDto));
-    }
-
     const loginUser2 = () => {
         const req: AuthenticationRequest = {
-            email: "ddsdsdsd@gmail.com",
+            email: "sasas@gmail.com",
             password: "artur",
         };
         loginUser(req)
@@ -95,9 +61,12 @@ export function Main() {
 
     const registerUser2 = () => {
         const req: RegisterRequest = {
-            name: "artur",
-            email: "ddsdsdsd@gmail.com",
-            password: "artur",
+            "name":"dsdsd",
+            "email":"sasas@gmail.com",
+            "password":"artur",
+            "phoneNumber":"0048 500 511 222",
+            "gender": Gender.M,
+            "dateOfBirth": new Date('2000-11-02')
         };
         registerUser(req)
             .then(res => {
@@ -119,12 +88,6 @@ export function Main() {
             <Button variant="contained" onClick={() => onClickFun()}>Increment</Button>
             <Button variant="contained" onClick={() => userDtoFromRedux()}>Get UserDto</Button>
             <Button variant="contained" onClick={() => setUserDto()}>Set User Dto</Button>
-
-            <br/>
-            <hr/>
-            <Button variant="contained" onClick={() => registerUser1()}>Register User</Button>
-            <Button variant="contained" onClick={() => loginUser1()}>Login User</Button>
-            <Button variant="contained" onClick={() => getUserData1()}>Get Auth Data</Button>
 
             <br/>
             <hr/>

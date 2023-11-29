@@ -1,17 +1,50 @@
 import {Button, Container, FormControl, FormLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
-import UserDataPanel from "./UserDataPanel";
 import React from "react";
 import {AuthenticationRequest} from "../../../dto/AuthenticationRequest";
+import {loginUser} from "../../../services/auth";
+import {AuthDto} from "../../../dto/AuthDto";
+import {ACTIONS, storeAuth} from "../../../config/storage";
+import {isEmail} from "../../../commons/FieldValidator";
+import {EMAIL_ERROR_TEXT, PASSWORD_ERROR_TEXT} from "../../../commons/StaticText";
 
 export function Login() {
 
-    const [state, setState] = React.useState();
+    const [emailError, setEmailError] = React.useState(false);
+    const [passError, setPassError] = React.useState(false);
+    const [error1, setError1] = React.useState('');
+    const [error2, setError2] = React.useState('');
+    const [passwordField, setPasswordField] = React.useState('');
+    const [emailField, setEmailField] = React.useState('');
 
-
-    let passwordField: string = '';
-    let emailField: string = '';
+    const loginRequest = () => {
+        if (!isEmail(emailField)) {
+            return;
+        }
+        const req: AuthenticationRequest = {
+            email: emailField,
+            password: passwordField,
+        };
+        loginUser(req)
+            .then(res => {
+                const auth: AuthDto = {
+                    access_token: res.access_token,
+                    refresh_token: res.refresh_token,
+                    isLogged: true,
+                }
+                storeAuth(ACTIONS.SAVE, auth);
+                console.log(res);
+            })
+            .catch(error => {
+            setEmailError(true);
+            setError1(EMAIL_ERROR_TEXT);
+            setPassError(true)
+            setError2(PASSWORD_ERROR_TEXT)
+        })
+    }
     const handleSubmit = () => {
+        // isEmail()
         console.log('submit: email=' + emailField + ', password=' + passwordField);
+        loginRequest();
     }
 
     const handleTextInputChange = (event: any) => {
@@ -19,10 +52,19 @@ export function Login() {
         let field = event.target.id;
         switch (field) {
             case 'email-field':
-                emailField = va1ue
+                setEmailField(va1ue)
+                if (isEmail(emailField)) {
+                    setEmailError(false);
+                    setError1('');
+                } else {
+                    setEmailError(true);
+                    setError1(EMAIL_ERROR_TEXT);
+                }
                 break;
             case 'password-field':
-                passwordField = va1ue
+                setPassError(false)
+                setError2('')
+                setPasswordField(va1ue)
                 break;
         }
     }
@@ -33,10 +75,13 @@ export function Login() {
 
                 <FormLabel htmlFor='email-field'>Adres email</FormLabel>
                 <TextField id='email-field' type='email' margin="normal"
+                           helperText={error1} error={emailError}
                            onChange={handleTextInputChange}></TextField>
 
                 <FormLabel htmlFor='password-field'>Hasło</FormLabel>
                 <TextField id='password-field' type='password' margin="normal"
+                           error={passError}
+                           helperText={error2}
                            onChange={handleTextInputChange}></TextField>
 
                 <Button onClick={() => handleSubmit()} variant="contained">Zaloguj</Button>
