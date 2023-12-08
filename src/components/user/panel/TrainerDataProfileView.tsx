@@ -48,56 +48,54 @@ export default function TrainerDataProfileView() {
     }
 
 
-
     const renderTrainerProfileView = () => {
         return (
-            // <Box sx={{flexGrow: 1, border: 'solid black 1px'}}>
-            //     <Grid container spacing={2}>
-            //         <Grid item md={8}>
-            //             <ListItem>
-            //                 <ListItemIcon>
-            //                     <PersonIcon/>
-            //                 </ListItemIcon>
-            //                 <ListItemText primary='Profil trenerski:'/>
-            //             </ListItem>
-            //             <PersonalDataList>
-            //                 <List>
-            //                     {trainerData !== null && trainerData.description !== null ?
-            //                         <ListItem>
-            //                         <ListItemText
-            //                             primary='Opis trenera'
-            //                             secondary={trainerData.description}/>
-            //                     </ListItem> : null}
-            //                     <ListItem>
-            //                         <ListItemText
-            //                             primary='Opis trenera'
-            //                             secondary={trainerData.description}/>
-            //                     </ListItem>
-            //                     <ListItem>
-            //                         <ListItemText
-            //                             primary='Doświadczenie w miesiącach'
-            //                             secondary={trainerData.experience}/>
-            //                     </ListItem>
-            //                     <ListItem>
-            //                         <ListItemText
-            //                             primary='Specjalizacje trenera'
-            //                             secondary={trainerData.specializations}/>
-            //                     </ListItem>
-            //                     <ListItem>
-            //                         <ListItemText
-            //                             primary='Płeć'
-            //                             secondary={trainerData.isProfileActive ? "Tak" : "Nie"}/>
-            //                     </ListItem>
-            //                 </List>
-            //             </PersonalDataList>
-            //         </Grid>
-            //     </Grid>
-            // </Box>
-            <p>dupa</p>
+            <Box sx={{flexGrow: 1, border: 'solid black 1px'}}>
+                {/*<Grid container spacing={2}>*/}
+                {/*    <Grid item md={8}>*/}
+                {/*        <ListItem>*/}
+                {/*            <ListItemIcon>*/}
+                {/*                <PersonIcon/>*/}
+                {/*            </ListItemIcon>*/}
+                {/*            <ListItemText primary='Profil trenerski:'/>*/}
+                {/*        </ListItem>*/}
+                {/*        <PersonalDataList>*/}
+                {/*            <List>*/}
+                {/*                <ListItem>*/}
+                {/*                    <ListItemText*/}
+                {/*                        primary='Opis trenera'*/}
+                {/*                        secondary={trainerData === null? '' : trainerData.description}/>*/}
+                {/*                </ListItem>*/}
+                {/*                <ListItem>*/}
+                {/*                    <ListItemText*/}
+                {/*                        primary='Opis trenera'*/}
+                {/*                        secondary={trainerData.description}/>*/}
+                {/*                </ListItem>*/}
+                {/*                <ListItem>*/}
+                {/*                    <ListItemText*/}
+                {/*                        primary='Doświadczenie w miesiącach'*/}
+                {/*                        secondary={trainerData.experience}/>*/}
+                {/*                </ListItem>*/}
+                {/*                <ListItem>*/}
+                {/*                    <ListItemText*/}
+                {/*                        primary='Specjalizacje trenera'*/}
+                {/*                        secondary={trainerData.specializations}/>*/}
+                {/*                </ListItem>*/}
+                {/*                <ListItem>*/}
+                {/*                    <ListItemText*/}
+                {/*                        primary='Czy profil jest aktywny i widoczny'*/}
+                {/*                        secondary={trainerData.isProfileActive ? "Tak" : "Nie"}/>*/}
+                {/*                </ListItem>*/}
+                {/*            </List>*/}
+                {/*        </PersonalDataList>*/}
+                {/*    </Grid>*/}
+                {/*</Grid>*/}
+                <p>profile</p>
+            </Box>
         );
     }
 
     return (
         trainerData != null ? renderTrainerProfileView() : renderTrainerForm())
-    ;
+        ;
 }

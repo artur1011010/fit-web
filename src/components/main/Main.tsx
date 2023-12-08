@@ -11,37 +11,6 @@ import {ACTIONS, storeAuth} from "../../config/storage";
 
 export function Main() {
 
-    const [count, setCount] = React.useState<number>(0);
-    const selectUser = (state: RootState) => state.user;
-    const userDto = useSelector(selectUser)
-
-    const selectAuth = (state: RootState) => state.auth;
-    const authDto = useSelector(selectAuth)
-
-    const onClickFun = () => {
-        console.log("onClickFun")
-        setCount(count + 1);
-    }
-    const userDtoFromRedux = () => {
-        console.log(userDto)
-    }
-
-    const setUserDto = () => {
-        store.dispatch({
-            type: "SET_USER",
-            payload: {
-                id: 1,
-                name: "Jan Kowalski",
-                email: "email@gmail.com",
-                phoneNumber: "2255555",
-                gender: Gender.M,
-                dateOfBirth: new Date("1990-01-01"),
-                trainer: null,
-                client: null,
-            },
-        });
-    }
-
     const loginUser2 = () => {
         const req: AuthenticationRequest = {
             email: "sasas@gmail.com",
@@ -83,20 +52,12 @@ export function Main() {
 
     return (
         <div>
-            <Typography variant='h4'>Main</Typography>
-
-            <Button variant="contained" onClick={() => onClickFun()}>Increment</Button>
-            <Button variant="contained" onClick={() => userDtoFromRedux()}>Get UserDto</Button>
-            <Button variant="contained" onClick={() => setUserDto()}>Set User Dto</Button>
-
             <br/>
             <hr/>
             <Button variant="contained" onClick={() => registerUser2()}>Register User</Button>
             <Button variant="contained" onClick={() => loginUser2()}>Login User</Button>
             <Button variant="contained" onClick={() => getUserData2()}>Get Auth Data</Button>
             <Button variant="contained" onClick={() => clearData()}>Clear data</Button>
-
-            <Typography sx={{mt: '45px'}} variant='h4'>{count}</Typography>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import {AuthenticationRequest} from "../dto/AuthenticationRequest";
 
 
 export const registerUser = async (registerRequest : RegisterRequest) => {
-    const response = await fetch('http://localhost:8081/api/v1/auth/register', {
+    const response = await fetch('http://localhost:8081/user/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export const registerUser = async (registerRequest : RegisterRequest) => {
 
 
 export const loginUser = async (authenticationRequest: AuthenticationRequest) => {
-    const response = await fetch('http://localhost:8081/api/v1/auth/authenticate', {
+    const response = await fetch('http://localhost:8081/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
