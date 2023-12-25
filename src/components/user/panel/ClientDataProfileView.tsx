@@ -5,14 +5,17 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-import PersonIcon from '@mui/icons-material/Person';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import {ListItemIcon} from "@mui/material";
-import {getEmptyUserDto} from "../../../dto/UserDto";
 import {useEffect, useState} from "react";
-import * as url from "url";
 import {ACTIONS, storeAuth} from "../../../config/storage";
-import {getPolishName} from "../../../dto/Gender";
-import {isBlank} from "../../../commons/FieldValidator";
+import CustomTextField from "../CustomTextField";
+import {STRING_EMPTY} from "../../../commons/StaticText";
+import {postClientDto} from "../../../services/UserService";
+import {RegisterRequest} from "../../../dto/RegisterRequest";
+import {Gender} from "../../../dto/Gender";
+import {ClientDto} from "../../../dto/ClientDto";
+import {parseFromString} from "../../../dto/FitnessLevel";
 
 function generate(element: React.ReactElement) {
     return [0, 1, 2, 4, 5].map((value) =>
@@ -28,68 +31,106 @@ const PersonalDataList = styled('div')(({theme}) => ({
 
 export default function ClientDataProfileView() {
     const [clientData, setClientData] = useState(null);
-    const [clientDataReady, setClientDataReady] = useState(false);
-    const url = 'http://localhost:8081/user/me/client';
+    const url = 'http://localhost:8081/user/client';
+
     const getUserData = () => {
         const auth = storeAuth(ACTIONS.GET, null);
         return fetch(url, {
             headers: {Authorization: `Bearer ${auth.access_token}`}
         })
-            .then((res) => {
-                if (res !== null && res !== undefined) {
-                    setClientDataReady(true)
-                    return res.json();
-                } else {
-                    console.log("res puste: " + res)
-                }
-            })
+            .then((res) => res.json())
             .then((d) => {
                 setClientData(d)
-            }).catch(error => {
-                console.log(error)
-            })
+            });
     }
 
     useEffect(() => {
         getUserData();
     }, []);
 
+    const getBio = (): string => {
+        if (clientData !== null && clientData !== undefined) {
+            // @ts-ignore
+            if (clientData.bio !== null) {
+                // @ts-ignore
+                return clientData.bio;
+            }
+        }
+        return STRING_EMPTY;
+    }
+
+    const getFitnessLevel = (): string => {
+        if (clientData !== null && clientData !== undefined) {
+            // @ts-ignore
+            if (clientData.fitnessLevel !== null) {
+                // @ts-ignore
+                return clientData.fitnessLevel;
+            }
+        }
+        return STRING_EMPTY;
+    }
+
+    const getGoals = (): string => {
+        if (clientData !== null && clientData !== undefined) {
+            // @ts-ignore
+            if (clientData.goals !== null) {
+                // @ts-ignore
+                return clientData.goals;
+            }
+        }
+        return STRING_EMPTY;
+    }
+
+    const handleBioChange = (value: string) => {
+        console.log("zmiana bio: " + value)
+        const req: ClientDto = {
+            bio: value,
+            goals: getGoals(),
+            fitnessLevel: parseFromString(getFitnessLevel()),
+        };
+        postClientDto(req)
+            .then(() => getUserData())
+    }
+
+    const handleGoalsChange = (value: string) => {
+        console.log("zmiana goals: " + value)
+        const req: ClientDto = {
+            bio: getBio(),
+            goals: value,
+            fitnessLevel: parseFromString(getFitnessLevel()),
+        };
+        postClientDto(req)
+            .then(() => getUserData())
+    }
+
 
     return (
-        <Box sx={{flexGrow: 1, border: 'solid black 1px'}}>
+        <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
             <Grid container spacing={2}>
-                {/*<Grid item md={8}>*/}
-                {/*    <ListItem>*/}
-                {/*        <ListItemIcon>*/}
-                {/*            <PersonIcon/>*/}
-                {/*        </ListItemIcon>*/}
-                {/*        <ListItemText primary='Dane o kliencie które będą widoczne dla trenerów:'/>*/}
-                {/*    </ListItem>*/}
-                {/*    <PersonalDataList>*/}
-                {/*        <List>*/}
-                {/*            <ListItem>*/}
-                {/*                <ListItemText*/}
-                {/*                    primary='Nazwa użytkownika'*/}
-                {/*                    secondary={clientData.name}/>*/}
-                {/*            </ListItem>*/}
-                {/*            <ListItem>*/}
-                {/*                <ListItemText*/}
-                {/*                    primary='Adres email'*/}
-                {/*                    secondary={clientData.email}/>*/}
-                {/*            </ListItem>*/}
-                {/*            <ListItem>*/}
-                {/*                <ListItemText*/}
-                {/*                    primary='Numer telefonu'*/}
-                {/*                    secondary={clientData.phoneNumber}/>*/}
-                {/*            </ListItem>*/}
-                {/*            <ListItem>*/}
-                {/*                <ListItemText*/}
-                {/*                    primary='Płeć'*/}
-                {/*                    secondary={clientData.gender !== undefined ? getPolishName(clientData.gender) : "N/A"}/>*/}
-                {/*            </ListItem>*/}
-                {/*        </List>*/}
-                {/*    </PersonalDataList>*/}
-                {/*</Grid>*/}
+                <Grid item md={12}>
+                    <ListItem>
+                        <ListItemIcon>
+                            <AssignmentIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary='Dane klienta:'/>
+                    </ListItem>
+                    <PersonalDataList>
+                        <List>
+                            <ListItem>
+                                <CustomTextField label='Biografia' value={getBio()} handleChange={handleBioChange}
+                                                 editable={true}></CustomTextField>
+                            </ListItem>
+                            <ListItem>
+                                <CustomTextField label='Moje cele' value={getGoals()} handleChange={handleGoalsChange}
+                                                 editable={true}></CustomTextField>
+                            </ListItem>
+                            <ListItem>
+                                <CustomTextField label='Poziom doświadczenia' value={getFitnessLevel()}
+                                                 handleChange={handleGoalsChange} editable={true}></CustomTextField>
+                            </ListItem>
+                        </List>
+                    </PersonalDataList>
+                </Grid>
             </Grid>
         </Box>
     );

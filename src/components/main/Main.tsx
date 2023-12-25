@@ -1,13 +1,14 @@
-import {Button, Typography} from "@mui/material";
+import {Button} from "@mui/material";
 import React from "react";
-import store, {RootState} from "../../config/store";
-import {useSelector} from "react-redux";
 import {Gender} from "../../dto/Gender";
 import {loginUser, registerUser} from "../../services/auth";
 import {RegisterRequest} from "../../dto/RegisterRequest";
 import {AuthenticationRequest} from "../../dto/AuthenticationRequest";
 import {AuthDto} from "../../dto/AuthDto";
 import {ACTIONS, storeAuth} from "../../config/storage";
+import {ClientDto} from "../../dto/ClientDto";
+import {FitnessLevel} from "../../dto/FitnessLevel";
+import {postClientDto} from "../../services/UserService";
 
 export function Main() {
 
@@ -30,10 +31,10 @@ export function Main() {
 
     const registerUser2 = () => {
         const req: RegisterRequest = {
-            "name":"dsdsd",
-            "email":"sasas@gmail.com",
-            "password":"artur",
-            "phoneNumber":"0048 500 511 222",
+            "name": "dsdsd",
+            "email": "sasas@gmail.com",
+            "password": "artur",
+            "phoneNumber": "0048 500 511 222",
             "gender": Gender.M,
             "dateOfBirth": new Date('2000-11-02')
         };
@@ -50,6 +51,18 @@ export function Main() {
         storeAuth(ACTIONS.CLEAR, null);
     }
 
+    const addClientProfile = () => {
+        const req: ClientDto = {
+            bio: "jakas biografia klienta",
+            goals: "chciałbym schudnac",
+            fitnessLevel: FitnessLevel.BEGINNER
+        };
+        postClientDto(req)
+            .then(res => {
+                console.log(res);
+            });
+    }
+
     return (
         <div>
             <br/>
@@ -58,6 +71,10 @@ export function Main() {
             <Button variant="contained" onClick={() => loginUser2()}>Login User</Button>
             <Button variant="contained" onClick={() => getUserData2()}>Get Auth Data</Button>
             <Button variant="contained" onClick={() => clearData()}>Clear data</Button>
+            <br/>
+            <hr/>
+            <Button variant="contained" onClick={() => addClientProfile()}>Add Client Profile</Button>
+
         </div>
     )
 }

@@ -73,13 +73,11 @@ export function Login() {
         <Container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <FormControl sx={{width: '100%', p: 2}}>
 
-                <FormLabel htmlFor='email-field'>Adres email</FormLabel>
-                <TextField id='email-field' type='email' margin="normal"
+                <TextField label='Adres email' id='email-field' type='email' margin="normal"
                            helperText={error1} error={emailError}
                            onChange={handleTextInputChange}></TextField>
 
-                <FormLabel htmlFor='password-field'>Hasło</FormLabel>
-                <TextField id='password-field' type='password' margin="normal"
+                <TextField label='Hasło' id='password-field' type='password' margin="normal"
                            error={passError}
                            helperText={error2}
                            onChange={handleTextInputChange}></TextField>

@@ -52,7 +52,7 @@ export default function UserDataPanel() {
         <Box sx={{width: '100%'}}>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleChange} aria-label="user panel">
-                    <Tab label="Dane użytkownika:" {...a11yProps(0)} />
+                    <Tab label="Dane użytkownika" {...a11yProps(0)} />
                     <Tab label="Profil Klienta" {...a11yProps(1)} />
                     <Tab label="Profil Trenera" {...a11yProps(2)} />
                 </Tabs>

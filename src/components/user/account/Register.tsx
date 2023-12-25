@@ -202,26 +202,22 @@ export function Register() {
             {!registerComplete ?
                 <FormControl sx={{width: '100%', p: 5}}>
                     <Typography variant='h4' my={3}>Formularz rejestracji</Typography>
-                    <FormLabel htmlFor='user-name-field'>Nazwa użytkownika</FormLabel>
-                    <TextField id='user-name-field' type='text' margin="normal"
+                    <TextField label='Nazwa użytkownika' id='user-name-field' type='text' margin="normal"
                                helperText={userNameErrorText} error={userNameError}
                                onChange={handleTextInputChange}></TextField>
 
-                    <FormLabel htmlFor='email-field'>Adres email</FormLabel>
-                    <TextField id='email-field' type='email' margin="normal"
+                    <TextField label='Adres email' id='email-field' type='email' margin="normal"
                                helperText={emailErrorText} error={emailError}
                                onChange={handleTextInputChange}></TextField>
 
-                    <FormLabel htmlFor='phone-field'>Numer telefonu</FormLabel>
-                    <TextField id='phone-field' type='text' margin="normal"
+                    <TextField label='Numer telefonu' id='phone-field' type='text' margin="normal"
                                helperText={phoneFieldErrorText} error={phoneFieldError}
                                onChange={handleTextInputChange}></TextField>
 
-                    <FormLabel id='gender-label' htmlFor='gender-select'>Płeć</FormLabel>
+                    <FormLabel sx={{mt: 2}} htmlFor='gender-label'>Płeć:</FormLabel>
                     <Select
                         labelId="gender-label"
                         id="gender-select"
-                        label="gender-label"
                         variant='outlined'
                         defaultValue={'M'}
                         onChange={handleSelectInputChange}
@@ -230,20 +226,17 @@ export function Register() {
                         <MenuItem value={'F'}>Kobieta</MenuItem>
                     </Select>
 
-                    <FormLabel htmlFor='date-field'>Data urodzenia</FormLabel>
+                    <FormLabel sx={{mt: 2}} htmlFor='date-field'>Data urodzenia:</FormLabel>
                     <TextField id='date-field' type='date' margin="normal"
                                onChange={handleTextInputChange}></TextField>
 
-                    <FormLabel htmlFor='password-field'>Hasło</FormLabel>
-                    <TextField id='password-field' type='password' margin="normal"
+                    <TextField label='Hasło' id='password-field' type='password' margin="normal"
                                helperText={passwordErrorText} error={passwordError}
                                onChange={handleTextInputChange}></TextField>
 
-                    <FormLabel htmlFor='password2-field'>Powtórz hasło</FormLabel>
-                    <TextField id='password2-field' type='password' margin="normal"
+                    <TextField label='Powtórz hasło' id='password2-field' type='password' margin="normal"
                                helperText={password2ErrorText} error={password2Error}
                                onChange={handleTextInputChange}></TextField>
-
 
                     <Button onClick={() => handleSubmit()} variant="contained">Zarejestruj</Button>
                 </FormControl>

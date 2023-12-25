@@ -1,5 +1,6 @@
 import {RegisterRequest} from "../dto/RegisterRequest";
 import {AuthenticationRequest} from "../dto/AuthenticationRequest";
+import {ClientDto} from "../dto/ClientDto";
 
 
 export const registerUser = async (registerRequest : RegisterRequest) => {

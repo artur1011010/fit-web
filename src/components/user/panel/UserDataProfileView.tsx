@@ -13,6 +13,7 @@ import * as url from "url";
 import {ACTIONS, storeAuth} from "../../../config/storage";
 import {getPolishName} from "../../../dto/Gender";
 import {isBlank} from "../../../commons/FieldValidator";
+import CustomTextField from "../CustomTextField";
 
 function generate(element: React.ReactElement) {
     return [0, 1, 2, 4, 5].map((value) =>
@@ -44,11 +45,20 @@ export default function UserDataProfileView() {
         getUserData();
     }, []);
 
+    const handleUserNameChange = (value: string) =>{
+        console.log(`handleUserNameChange ${value}`)
+    }
+
+    const handlePhoneNumberChange = (value: string) =>{
+        console.log(`handlePhoneNumberChange ${value}`)
+    }
+
+
 
     return (
-        <Box sx={{flexGrow: 1, border: 'solid black 1px'}}>
+        <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
             <Grid container spacing={2}>
-                <Grid item md={8}>
+                <Grid item md={12}>
                     <ListItem>
                         <ListItemIcon>
                             <PersonIcon/>
@@ -58,24 +68,16 @@ export default function UserDataProfileView() {
                     <PersonalDataList>
                         <List>
                             <ListItem>
-                                <ListItemText
-                                    primary='Nazwa użytkownika'
-                                    secondary={userData.name}/>
+                                <CustomTextField label='Adres email' value={userData.email} editable={false}></CustomTextField>
                             </ListItem>
                             <ListItem>
-                                <ListItemText
-                                    primary='Adres email'
-                                    secondary={userData.email}/>
+                                <CustomTextField label='Nazwa użytkownika' value={userData.name} handleChange={handleUserNameChange} editable={false}></CustomTextField>
                             </ListItem>
                             <ListItem>
-                                <ListItemText
-                                    primary='Numer telefonu'
-                                    secondary={userData.phoneNumber}/>
+                                <CustomTextField label='Numer telefonu' value={userData.phoneNumber} handleChange={handlePhoneNumberChange} editable={false}></CustomTextField>
                             </ListItem>
                             <ListItem>
-                                <ListItemText
-                                    primary='Płeć'
-                                    secondary={userData.gender !== undefined ? getPolishName(userData.gender) : "N/A"}/>
+                                <CustomTextField label='Płeć' value={userData.gender !== undefined ? getPolishName(userData.gender) : "N/A"} handleChange={handlePhoneNumberChange} editable={false}></CustomTextField>
                             </ListItem>
                         </List>
                     </PersonalDataList>
