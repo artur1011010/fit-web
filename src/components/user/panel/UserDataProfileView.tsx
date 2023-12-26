@@ -58,7 +58,7 @@ export default function UserDataProfileView() {
     return (
         <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
             <Grid container spacing={2}>
-                <Grid item md={12}>
+                <Grid item xs={12}>
                     <ListItem>
                         <ListItemIcon>
                             <PersonIcon/>

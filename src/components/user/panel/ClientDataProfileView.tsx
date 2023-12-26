@@ -16,6 +16,7 @@ import {RegisterRequest} from "../../../dto/RegisterRequest";
 import {Gender} from "../../../dto/Gender";
 import {ClientDto} from "../../../dto/ClientDto";
 import {parseFromString} from "../../../dto/FitnessLevel";
+import CustomSelectField from "../CustomSelectField";
 
 function generate(element: React.ReactElement) {
     return [0, 1, 2, 4, 5].map((value) =>
@@ -103,11 +104,22 @@ export default function ClientDataProfileView() {
             .then(() => getUserData())
     }
 
+    const handleFitnessLevelChange = (value: string) => {
+        console.log("zmiana fitnessLevel: " + value)
+        const req: ClientDto = {
+            bio: getBio(),
+            goals: getGoals(),
+            fitnessLevel: parseFromString(value),
+        };
+        postClientDto(req)
+            .then(() => getUserData())
+    }
+
 
     return (
         <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
             <Grid container spacing={2}>
-                <Grid item md={12}>
+                <Grid item xs={12}>
                     <ListItem>
                         <ListItemIcon>
                             <AssignmentIcon/>
@@ -125,8 +137,8 @@ export default function ClientDataProfileView() {
                                                  editable={true}></CustomTextField>
                             </ListItem>
                             <ListItem>
-                                <CustomTextField label='Poziom doświadczenia' value={getFitnessLevel()}
-                                                 handleChange={handleGoalsChange} editable={true}></CustomTextField>
+                                <CustomSelectField label='Poziom doświadczenia' value={getFitnessLevel()}
+                                                   handleChange={handleFitnessLevelChange} editable={true}></CustomSelectField>
                             </ListItem>
                         </List>
                     </PersonalDataList>

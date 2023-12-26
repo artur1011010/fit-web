@@ -3,5 +3,5 @@ export interface TrainerDto{
     description: string;
     experience: number;
     specializations: string;
-    isProfileActive: boolean;
+    profileActive: boolean;
 }

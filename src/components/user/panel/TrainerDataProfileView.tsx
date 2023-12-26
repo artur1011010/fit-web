@@ -2,6 +2,7 @@ import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import {
+    Button, FormControlLabel,
     ListItemIcon,
     Switch,
 } from "@mui/material";
@@ -18,6 +19,8 @@ import {ClientDto} from "../../../dto/ClientDto";
 import {parseFromString} from "../../../dto/FitnessLevel";
 import {postClientDto, postTrainerDto} from "../../../services/UserService";
 import {TrainerDto} from "../../../dto/TrainerDto";
+import CustomNumberField from "../CustomNumberField";
+import CheckIcon from "@mui/icons-material/Check";
 
 function generate(element: React.ReactElement) {
     return [0, 1, 2, 4, 5].map((value) =>
@@ -35,6 +38,7 @@ export default function TrainerDataProfileView() {
 
 
     const [trainerData, setTrainerData] = useState(null);
+    const [switcherActive, setSwitcherActive] = useState(false);
     const url = 'http://localhost:8081/user/trainer';
 
     const getTrainerData = () => {
@@ -45,6 +49,9 @@ export default function TrainerDataProfileView() {
             .then((res) => res.json())
             .then((d) => {
                 setTrainerData(d)
+                if(d.isProfileActive){
+                    setSwitcherActive(true);
+                }
             });
     }
 
@@ -58,14 +65,22 @@ export default function TrainerDataProfileView() {
             description: value,
             experience: Number.parseInt(getExperience()),
             specializations: getSpecializations(),
-            isProfileActive: getIsActive()
+            profileActive: getIsActive()
         };
         postTrainerDto(req)
             .then(() => getTrainerData())
     }
 
-    const handleExpChange = (value: string) => {
+    const handleExpChange = (value: number) => {
         console.log('handleExpChange ' + value)
+        const req: TrainerDto = {
+            description: getDescription(),
+            experience: value,
+            specializations: getSpecializations(),
+            profileActive: getIsActive()
+        };
+        postTrainerDto(req)
+            .then(() => getTrainerData())
     }
     const handleSpecChange = (value: string) => {
         console.log('handleSpecChange ' + value)
@@ -73,8 +88,21 @@ export default function TrainerDataProfileView() {
             description: getDescription(),
             experience: Number.parseInt(getExperience()),
             specializations: value,
-            isProfileActive: getIsActive()
+            profileActive: getIsActive()
         };
+        postTrainerDto(req)
+            .then(() => getTrainerData())
+    }
+
+    const handleActiveChange = (active : boolean) => {
+        console.log('handleActiveChange: ' + active)
+        const req: TrainerDto = {
+            description: getDescription(),
+            experience: Number.parseInt(getExperience()),
+            specializations: getSpecializations(),
+            profileActive: active
+        };
+        console.log(req)
         postTrainerDto(req)
             .then(() => getTrainerData())
     }
@@ -115,18 +143,34 @@ export default function TrainerDataProfileView() {
     const getIsActive = (): boolean => {
         if (trainerData !== null && trainerData !== undefined) {
             // @ts-ignore
-            if (trainerData.isProfileActive !== null) {
+            if (trainerData.profileActive !== null) {
                 // @ts-ignore
-                return trainerData.isProfileActive;
+                return trainerData.profileActive;
             }
         }
         return false;
     }
 
+    const getProfileSwitcher = () => {
+        if(getIsActive()){
+            return (
+                <ListItem sx={{color: 'green'}}>
+                    <FormControlLabel control={<Switch onChange={() => handleActiveChange(false)} checked={true}/>} label='aktywny'/>
+                </ListItem>
+            )
+        }
+        return (
+            <ListItem sx={{color: 'grey'}}>
+                <FormControlLabel control={<Switch onChange={() => handleActiveChange(true)}/>} label='nieaktywny'/>
+            </ListItem>
+        )
+    }
+
+
     return (
         <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
             <Grid container spacing={2}>
-                <Grid item md={12}>
+                <Grid item xs={12}>
                     <ListItem>
                         <ListItemIcon>
                             <SportsIcon/>
@@ -135,28 +179,21 @@ export default function TrainerDataProfileView() {
                     </ListItem>
                     <PersonalDataList>
                         <List>
+                            {getProfileSwitcher()}
                             <ListItem>
                                 <CustomTextField label='Opis' value={getDescription()} handleChange={handleDescChange}
                                                  editable={true}></CustomTextField>
                             </ListItem>
                             <ListItem>
-                                <CustomTextField label='Doświadczenie w miesiacach' value={getExperience()}
-                                                 handleChange={handleExpChange}
-                                                 editable={true}></CustomTextField>
+                                <CustomNumberField label='Doświadczenie w miesiacach'
+                                                   value={Number.parseInt(getExperience())}
+                                                   handleChange={handleExpChange}
+                                                   editable={true}></CustomNumberField>
                             </ListItem>
                             <ListItem>
                                 <CustomTextField label='Specjalizacje' value={getSpecializations()}
                                                  handleChange={handleSpecChange} editable={true}></CustomTextField>
                             </ListItem>
-                            {getIsActive() ?
-                                <ListItem>
-                                    <Switch defaultChecked/>
-                                </ListItem>
-                                :
-                                <ListItem>
-                                    <Switch/>
-                                </ListItem>
-                            }
                         </List>
                     </PersonalDataList>
                 </Grid>

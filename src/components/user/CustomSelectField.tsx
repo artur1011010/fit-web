@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from "react";
 import ListItem from "@mui/material/ListItem";
-import {Button, TextField} from "@mui/material";
+import {Button, MenuItem, Select, TextField} from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import * as React from "react";
 
 
-export default function CustomNumberField(prop: {
+export default function CustomSelectField(prop: {
     label: string,
-    value?: number,
+    value?: string,
     editable: boolean
     handleChange?: Function | null,
 }) {
@@ -46,10 +46,20 @@ export default function CustomNumberField(prop: {
         if (editActive) {
             return (
                 <>
-                    <TextField sx={style} InputLabelProps={{shrink: true}} label={prop.label}
-                               id='field' type='number' margin="none"
-                               inputRef={fieldRef}>
-                    </TextField>
+                    <Select
+                        labelId="gender-label"
+                        id="gender-select"
+                        variant='outlined'
+                        defaultValue={'BEGINNER'}
+                        sx={style}
+                        inputRef={fieldRef}
+                    >
+                        <MenuItem value={'BEGINNER'}>BEGINNER</MenuItem>
+                        <MenuItem value={'NOVICE'}>NOVICE</MenuItem>
+                        <MenuItem value={'INTERMEDIATE'}>INTERMEDIATE</MenuItem>
+                        <MenuItem value={'ADVANCED'}>ADVANCED</MenuItem>
+                        <MenuItem value={'ELITE'}>ELITE</MenuItem>
+                    </Select>
                     <Button onClick={() => handleSubmit()}>
                         <CheckIcon></CheckIcon>
                     </Button>
@@ -58,14 +68,14 @@ export default function CustomNumberField(prop: {
         } else {
             return (
                 <>
-                    <TextField sx={prop.editable ? style : editableStyle} InputLabelProps={{shrink: true}}
+                    <TextField sx={style} InputLabelProps={{shrink: true}}
                                disabled={true} value={prop.value}
-                               label={prop.label} id='field' type='number' margin="none"
+                               label={prop.label} id='field' type='text' margin="none"
                                onChange={handleInputChange}
                     ></TextField>
-                    {prop.editable ? <Button onClick={() => handleEdit()}>
+                    <Button onClick={() => handleEdit()}>
                         <ModeEditIcon></ModeEditIcon>
-                    </Button> : null}
+                    </Button>
                 </>
             );
         }
