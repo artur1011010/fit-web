@@ -92,7 +92,7 @@ function ResponsiveAppBar() {
                         onClick={handleOpenUserMenu}
                         color="inherit"
                     >
-                        <AccountCircle fontSize={"large"}/>
+                        <Avatar alt="A" src='src/components/nav/avatar.png'/>
                     </IconButton>
                 </Tooltip>
                 <Menu
@@ -182,9 +182,14 @@ function ResponsiveAppBar() {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page.definition} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page.definition}</Typography>
-                                    </MenuItem>
+                                        <Button
+                                            href={page.site}
+                                            key={page.definition}
+                                            onClick={handleCloseNavMenu}
+                                            sx={{my: 2, color: 'white', display: 'block'}}
+                                        >
+                                            {page.definition}
+                                        </Button>
                                 ))}
                             </Menu>
                         </Box>

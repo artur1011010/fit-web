@@ -63,6 +63,12 @@ export function Main() {
             });
     }
 
+    const add5Trainers = () => {
+        fetch('http://localhost:8081/trainer/add5', {
+            method: 'POST'
+        });
+    }
+
     return (
         <div>
             <br/>
@@ -74,6 +80,7 @@ export function Main() {
             <br/>
             <hr/>
             <Button variant="contained" onClick={() => addClientProfile()}>Add Client Profile</Button>
+            <Button variant="contained" onClick={() => add5Trainers()}>Add 5 Trainers</Button>
 
         </div>
     )
