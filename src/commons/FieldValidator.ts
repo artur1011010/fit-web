@@ -21,8 +21,5 @@ export const isPolishPhoneNumber = (input: string): boolean => {
 }
 
 export const isBlank = (input: string): boolean => {
-    if(input.trim().length === 0) {
-        return true;
-    }
-    return false;
+    return input === undefined || input === null || input.trim().length === 0;
 }

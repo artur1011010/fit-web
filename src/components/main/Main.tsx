@@ -1,4 +1,4 @@
-import {Button} from "@mui/material";
+import {Button, Container} from "@mui/material";
 import React from "react";
 import {Gender} from "../../dto/Gender";
 import {loginUser, registerUser} from "../../services/auth";
@@ -71,17 +71,14 @@ export function Main() {
 
     return (
         <div>
-            <br/>
-            <hr/>
-            <Button variant="contained" onClick={() => registerUser2()}>Register User</Button>
-            <Button variant="contained" onClick={() => loginUser2()}>Login User</Button>
-            <Button variant="contained" onClick={() => getUserData2()}>Get Auth Data</Button>
-            <Button variant="contained" onClick={() => clearData()}>Clear data</Button>
-            <br/>
-            <hr/>
-            <Button variant="contained" onClick={() => addClientProfile()}>Add Client Profile</Button>
-            <Button variant="contained" onClick={() => add5Trainers()}>Add 5 Trainers</Button>
-
+            <Container sx={{display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", my: 4}}>
+                <Button variant="contained" onClick={() => registerUser2()} sx={{my: 2, width: '200px'}}>Register User</Button>
+                <Button variant="contained" onClick={() => loginUser2()} sx={{my: 2, width: '200px'}}>Login User</Button>
+                {/*<Button variant="contained" onClick={() => getUserData2()} sx={{my: 2, width: '200px'}}>Get Auth Data</Button>*/}
+                {/*<Button variant="contained" onClick={() => clearData()} sx={{my: 2, width: '200px'}}>Clear data</Button>*/}
+                <Button variant="contained" onClick={() => addClientProfile()} sx={{my: 2, width: '200px'}}>Add Client Profile</Button>
+                <Button variant="contained" onClick={() => add5Trainers()} sx={{my: 2, width: '200px'}}>Add 5 Trainers</Button>
+            </Container>
         </div>
     )
 }
