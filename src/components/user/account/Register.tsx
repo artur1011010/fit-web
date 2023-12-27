@@ -12,6 +12,7 @@ import {
 import React from "react";
 import {isBlank, isEmail, isPolishPhoneNumber} from "../../../commons/FieldValidator";
 import {
+    DATE_ERROR_TEXT,
     EMAIL2_ERROR_TEXT,
     EMAIL_ERROR_TEXT,
     PASSWORD2_ERROR_TEXT,
@@ -42,8 +43,11 @@ export function Register() {
     const [phoneFieldError, setPhoneFieldError] = React.useState(false);
     const [phoneFieldErrorText, setPhoneFieldErrorText] = React.useState(STRING_EMPTY);
 
-    const [emailField, setEmailField] = React.useState(STRING_EMPTY);
     const [birthDateField, setBirthDateField] = React.useState(STRING_EMPTY);
+    const [dateFieldError, setDateFieldError] = React.useState(false);
+    const [dateFieldErrorText, setDateFieldErrorText] = React.useState(STRING_EMPTY);
+
+    const [emailField, setEmailField] = React.useState(STRING_EMPTY);
     const [genderField, setGenderField] = React.useState("M");
 
     const [passwordField, setPasswordField] = React.useState(STRING_EMPTY);
@@ -55,10 +59,12 @@ export function Register() {
 
 
     const handleSubmit = () => {
-        validateFields();
+        if(!isValid()){
+            return;
+        }
         console.log('submit ');
-        console.log("gender field: " + genderField)
         registerRequest()
+        setRegisterComplete(true)
     }
 
     const registerRequest = () => {
@@ -102,10 +108,12 @@ export function Register() {
         setPassword2ErrorText(STRING_EMPTY)
     }
 
-    const validateFields = () => {
+    const isValid = (): boolean => {
+        let isValid: boolean = true;
         if (isBlank(userNameField)) {
             setUserNameError(true);
             setUserNameErrorText(USER_NAME_ERROR_TEXT)
+            isValid = false;
         } else {
             setUserNameError(false);
             setUserNameErrorText(STRING_EMPTY)
@@ -113,6 +121,7 @@ export function Register() {
         if (!isEmail(emailField)) {
             setEmailError(true);
             setEmailErrorText(EMAIL_ERROR_TEXT)
+            isValid = false;
         } else {
             setEmailError(false);
             setEmailErrorText(STRING_EMPTY)
@@ -120,6 +129,7 @@ export function Register() {
         if (!isPolishPhoneNumber(phoneField)) {
             setPhoneFieldError(true);
             setPhoneFieldErrorText(PHONE_NUBER_ERROR_TEXT)
+            isValid = false;
         } else {
             setPhoneFieldError(false);
             setPhoneFieldErrorText(STRING_EMPTY)
@@ -129,9 +139,19 @@ export function Register() {
             setPassword2Error(true)
             setPasswordErrorText(PASSWORD2_ERROR_TEXT)
             setPassword2ErrorText(PASSWORD2_ERROR_TEXT)
+            isValid = false;
         } else {
             check2PasswordFields(password2Field)
         }
+        if(isBlank(birthDateField)){
+            setDateFieldError(true)
+            setDateFieldErrorText(DATE_ERROR_TEXT)
+            isValid = false;
+        }else{
+            setDateFieldError(false)
+            setDateFieldErrorText(STRING_EMPTY)
+        }
+        return isValid;
     }
 
 
@@ -166,7 +186,7 @@ export function Register() {
                 setEmailField(va1ue)
                 if (isEmail(emailField)) {
                     setEmailError(false);
-                    setEmailErrorText('');
+                    setEmailErrorText(STRING_EMPTY);
                 } else {
                     setEmailError(true);
                     setEmailErrorText(EMAIL_ERROR_TEXT);
@@ -228,6 +248,7 @@ export function Register() {
 
                     <FormLabel sx={{mt: 2}} htmlFor='date-field'>Data urodzenia:</FormLabel>
                     <TextField id='date-field' type='date' margin="normal"
+                               helperText={dateFieldErrorText} error={dateFieldError}
                                onChange={handleTextInputChange}></TextField>
 
                     <TextField label='Hasło' id='password-field' type='password' margin="normal"
@@ -242,7 +263,7 @@ export function Register() {
                 </FormControl>
                 :
                 <Box>
-                    <Typography variant='h6' color='green' my={3}>Udało się zarejestrować użytkownika</Typography>
+                    <Typography variant='h6' color='green' my={3}>Udało się zarejestrować użytkownika - jesteś już zalogowany</Typography>
                     <Link href="/" underline="hover">
                         {'przejdź do strony głównej'}
                     </Link>

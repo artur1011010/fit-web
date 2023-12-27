@@ -1,7 +1,5 @@
 import {RegisterRequest} from "../dto/RegisterRequest";
 import {AuthenticationRequest} from "../dto/AuthenticationRequest";
-import {ClientDto} from "../dto/ClientDto";
-
 
 export const registerUser = async (registerRequest : RegisterRequest) => {
     const response = await fetch('http://localhost:8081/user/register', {
@@ -14,7 +12,7 @@ export const registerUser = async (registerRequest : RegisterRequest) => {
     if (response.status === 200) {
         return response.json();
     } else {
-        return response.json();
+        throw new Error(await response.text());
     }
 };
 

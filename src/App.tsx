@@ -9,8 +9,6 @@ import store from './config/store'
 import ResponsiveAppBar from "./components/nav/ResponsiveAppBar";
 import {Main} from "./components/main/Main";
 import {Profile} from "./components/user/profile/Profile";
-import {Account} from "./components/user/account/Account";
-import {Blog} from "./components/blog/Blog";
 import {ErrorPage} from "./components/error/ErrorPage";
 import {Trainings} from "./components/trainers/Training";
 import {Trainers} from "./components/trainers/Trainers";
@@ -28,16 +26,6 @@ const router = createBrowserRouter([
     {
         path: "profile",
         element: <Profile/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "account",
-        element: <Account/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "changelist",
-        element: <Blog/>,
         errorElement: <ErrorPage/>,
     },
     {

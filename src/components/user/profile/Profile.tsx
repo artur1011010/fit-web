@@ -1,12 +1,11 @@
-import {Container, Typography} from "@mui/material";
+import {Container} from "@mui/material";
 import React from "react";
-import UserDataPanel from "../account/UserDataPanel";
+import UserDataPanel from "../panel/UserDataPanel";
 
 export function Profile () {
  return (
      <div>
-         <Typography variant='h4' sx={{my: 2}}>Panel klienta: </Typography>
-         <Container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+         <Container sx={{display: "flex", justifyContent: "center", alignItems: "center", my: 5}}>
              <UserDataPanel></UserDataPanel>
          </Container>
      </div>

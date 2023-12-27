@@ -3,10 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Container from "@mui/material/Container";
-import {getEmptyUserDto} from "../../../dto/UserDto";
-import UserDataProfileView from "../panel/UserDataProfileView";
-import ClientDataProfileView from "../panel/ClientDataProfileView";
-import TrainerDataProfileView from "../panel/TrainerDataProfileView";
+import UserDataProfileView from "./UserDataProfileView";
+import ClientDataProfileView from "./ClientDataProfileView";
+import TrainerDataProfileView from "./TrainerDataProfileView";
 
 interface TabPanelProps {
     children?: React.ReactNode;

@@ -28,14 +28,11 @@ interface Page {
 const pages: Page[] = [
     {definition: "Trenerzy", site: "/trainers"},
     {definition: "Treningi", site: "/trainings"},
-    {definition: "Wyszukiwanie", site: "/search"},
-    {definition: "Changelist", site: "/changelist"},
+    {definition: "Wyszukiwanie", site: "/search"}
 ];
 
 const settingsLogged: Page[] = [
     {definition: 'Profil', site: '/profile'},
-    {definition: 'Konto', site: '/account'},
-    {definition: 'Panel', site: '/panel'},
     {definition: 'Wylogowanie', site: '/logout'}];
 
 const settings: Page[] = [
