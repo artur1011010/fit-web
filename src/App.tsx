@@ -10,9 +10,8 @@ import ResponsiveAppBar from "./components/nav/ResponsiveAppBar";
 import {Main} from "./components/main/Main";
 import {Profile} from "./components/user/profile/Profile";
 import {ErrorPage} from "./components/error/ErrorPage";
-import {Trainings} from "./components/trainers/Training";
+import {Trainings} from "./components/trainings/Training";
 import {Trainers} from "./components/trainers/Trainers";
-import {Search} from "./components/Search";
 import {Login} from "./components/user/account/Login";
 import {Register} from "./components/user/account/Register";
 import {Logout} from "./components/user/account/Logout";
@@ -41,11 +40,6 @@ const router = createBrowserRouter([
     {
         path: "logout",
         element: <Logout/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "search",
-        element: <Search/>,
         errorElement: <ErrorPage/>,
     },
     {

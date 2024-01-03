@@ -27,8 +27,7 @@ interface Page {
 
 const pages: Page[] = [
     {definition: "Trenerzy", site: "/trainers"},
-    {definition: "Treningi", site: "/trainings"},
-    {definition: "Wyszukiwanie", site: "/search"}
+    {definition: "Treningi", site: "/trainings"}
 ];
 
 const settingsLogged: Page[] = [
@@ -112,12 +111,12 @@ function ResponsiveAppBar() {
                     {isUserLogged() ? settingsLogged.map((setting) => (
                         <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
                             <Link textAlign="center" href={setting.site} underline="hover"
-                                  variant='body2'>{setting.definition}</Link>
+                                  variant='body2'>{setting.definition.toUpperCase()}</Link>
                         </MenuItem>
                     )) : settings.map((setting) => (
                         <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
                             <Link textAlign="center" href={setting.site} underline="hover"
-                                  variant='body2'>{setting.definition}</Link>
+                                  variant='body2'>{setting.definition.toUpperCase()}</Link>
                         </MenuItem>
                     ))}
                 </Menu>

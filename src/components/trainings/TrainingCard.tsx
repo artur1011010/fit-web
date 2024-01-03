@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Modal, Typography} from "@mui/material";
-import imageUrl1 from './images/cards/gym1.jpg'
-import imageUrl2 from './images/cards/gym2.jpg'
-import imageUrl3 from './images/cards/gym3.png'
-import imageUrl4 from './images/cards/gym4.png'
-import imageUrl5 from './images/cards/gym5.png'
+import imageUrl1 from './images/gym1.jpg'
+import imageUrl2 from './images/gym2.jpg'
+import imageUrl3 from './images/gym3.png'
+import imageUrl4 from './images/gym4.png'
+import imageUrl5 from './images/gym5.png'
+import imageUrl6 from './images/gym6.png'
+import imageUrl7 from './images/gym7.jpg'
 import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
@@ -29,7 +31,7 @@ const style = {
     p: 4,
 };
 
-export function TrainersCard(prop: {
+export function TrainingCard(prop: {
     userName: string,
     specializations: string,
     description: string,
@@ -38,13 +40,12 @@ export function TrainersCard(prop: {
     phoneNumber: string
 }) {
 
-    const [counter, setCounter] = useState(0);
     const [open, setOpen] = React.useState(false);
     const handleOpenModal = () => setOpen(true);
     const handleCloseModal = () => setOpen(false);
 
     const getRandomImage = () => {
-        const imgNo = Math.floor(Math.random() * (5 - 1 + 1) + 1)
+        const imgNo = Math.floor(Math.random() * (7 - 1 + 1) + 1)
         switch (imgNo) {
             case 1:
                 return imageUrl1;
@@ -56,6 +57,10 @@ export function TrainersCard(prop: {
                 return imageUrl4;
             case 5:
                 return imageUrl5;
+            case 6:
+                return imageUrl6;
+            case 7:
+                return imageUrl7;
             default:
                 return imageUrl1;
         }
@@ -84,14 +89,14 @@ export function TrainersCard(prop: {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {limitText(prop.specializations, 40)}
+                        {limitText(prop.specializations, 20)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {limitText(prop.description, 150)}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" onClick={handleOpenModal}>Kontakt</Button>
+                    <Button size="small" onClick={handleOpenModal}>Zapisz się</Button>
                 </CardActions>
             </Card>
             <Modal

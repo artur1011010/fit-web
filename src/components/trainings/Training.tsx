@@ -1,11 +1,11 @@
-import {Container, TextField} from "@mui/material";
+import {Container, TextField, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
-import {TrainerCard} from "./TrainerCard";
-import Grid from "@mui/material/Grid";
+import {TrainerCard} from "../trainers/TrainerCard";
 import {isBlank} from "../../commons/FieldValidator";
+import Grid from "@mui/material/Grid";
+import {TrainingCard} from "./TrainingCard";
 
-export function Trainers() {
-
+export function Trainings () {
     const [trainersList, setTrainersList] = useState(null);
     const [trainersTempList, setTrainersTempList] = useState(null);
 
@@ -28,12 +28,9 @@ export function Trainers() {
         let result: React.JSX.Element[] = [];
         if (Array.isArray(trainersTempList)) {
             // @ts-ignore
-            trainersTempList.forEach(elem => result.push(<TrainerCard key={elem.userName} userName={elem.userName}
-                                                                      specializations={elem.specializations}
-                                                                      description={elem.description}
-                                                                      phoneNumber={elem.phoneNumber}
-                                                                      email={elem.email}
-            ></TrainerCard>))
+            trainersTempList.forEach(elem => result.push(<TrainingCard key={elem.userName} userName={elem.userName}
+                                                                       specializations={elem.specializations}
+                                                                       description={elem.description}></TrainingCard>))
         }
         return result;
     }
@@ -71,7 +68,7 @@ export function Trainers() {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <TextField sx={{width: '100%', my: 4}}
-                               label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
+                               label='Wyszukaj trening' id='user-name-field' type='text' margin="normal"
                                onChange={handleSearch}></TextField>
 
                 </Grid>
