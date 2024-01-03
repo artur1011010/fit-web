@@ -72,12 +72,12 @@ export function Main() {
     return (
         <div>
             <Container sx={{display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", my: 4}}>
-                <Button variant="contained" onClick={() => registerUser2()} sx={{my: 2, width: '200px'}}>Register User</Button>
-                <Button variant="contained" onClick={() => loginUser2()} sx={{my: 2, width: '200px'}}>Login User</Button>
+                <Button variant="contained" onClick={() => registerUser2()} sx={{my: 2, width: '200px'}}>Rejestracja usera</Button>
+                <Button variant="contained" onClick={() => loginUser2()} sx={{my: 2, width: '200px'}}>Logowanie</Button>
                 {/*<Button variant="contained" onClick={() => getUserData2()} sx={{my: 2, width: '200px'}}>Get Auth Data</Button>*/}
                 {/*<Button variant="contained" onClick={() => clearData()} sx={{my: 2, width: '200px'}}>Clear data</Button>*/}
-                <Button variant="contained" onClick={() => addClientProfile()} sx={{my: 2, width: '200px'}}>Add Client Profile</Button>
-                <Button variant="contained" onClick={() => add5Trainers()} sx={{my: 2, width: '200px'}}>Add 5 Trainers</Button>
+                <Button variant="contained" onClick={() => addClientProfile()} sx={{my: 2, width: '200px'}}>Dodanie profilu klienta</Button>
+                <Button variant="contained" onClick={() => add5Trainers()} sx={{my: 2, width: '200px'}}>dodanie 5 trenerów</Button>
             </Container>
         </div>
     )

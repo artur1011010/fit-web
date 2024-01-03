@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography} from "@mui/material";
+import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Modal, Typography} from "@mui/material";
 import imageUrl1 from './images/cards/gym1.jpg'
 import imageUrl2 from './images/cards/gym2.jpg'
 import imageUrl3 from './images/cards/gym3.png'
@@ -8,19 +8,40 @@ import imageUrl5 from './images/cards/gym5.png'
 import Avatar from "@mui/material/Avatar";
 import {red} from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import {limitText} from "../../commons/FieldValidator";
+import Box from "@mui/material/Box";
 
 function MoreVertIcon() {
     return null;
 }
 
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
 export function TrainersCard(prop: {
     userName: string,
     specializations: string,
     description: string,
-    experience: number
+    experience: number,
+    email: string,
+    phoneNumber: string
 }) {
 
     const [counter, setCounter] = useState(0);
+    const [open, setOpen] = React.useState(false);
+    const handleOpenModal = () => setOpen(true);
+    const handleCloseModal = () => setOpen(false);
 
     const getRandomImage = () => {
         const imgNo = Math.floor(Math.random() * (5 - 1 + 1) + 1)
@@ -41,7 +62,7 @@ export function TrainersCard(prop: {
     }
 
     return (
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={3}>
             <Card sx={{maxWidth: 345}}>
                 <CardHeader
                     avatar={
@@ -63,17 +84,33 @@ export function TrainersCard(prop: {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {prop.specializations}
+                        {limitText(prop.specializations, 40)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {prop.description}
+                        {limitText(prop.description, 150)}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Udostępnij</Button>
-                    <Button size="small">Wiecej</Button>
+                    <Button size="small" onClick={handleOpenModal}>Kontakt</Button>
                 </CardActions>
             </Card>
+            <Modal
+                open={open}
+                onClose={handleCloseModal}
+                aria-labelledby="kontakt do trenera"
+                aria-describedby="kontakt do trenera"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Dane kontaktowe {prop.userName}
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        <p><AlternateEmailIcon></AlternateEmailIcon>{prop.email}</p>
+                        <p><LocalPhoneIcon></LocalPhoneIcon>{prop.phoneNumber}</p>
+                        <Button size="small" onClick={handleCloseModal}>zamknij</Button>
+                    </Typography>
+                </Box>
+            </Modal>
         </Grid>
     );
 }

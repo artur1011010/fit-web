@@ -1,3 +1,7 @@
+import {Simulate} from "react-dom/test-utils";
+import input = Simulate.input;
+import {STRING_EMPTY} from "./StaticText";
+
 export const isEmail = (input: string): boolean => {
     if (input === "") {
         return false;
@@ -22,4 +26,12 @@ export const isPolishPhoneNumber = (input: string): boolean => {
 
 export const isBlank = (input: string): boolean => {
     return input === undefined || input === null || input.trim().length === 0;
+}
+
+export const limitText = (input: string, max: number) : string => {
+    if(isBlank(input)) {
+        return STRING_EMPTY;
+    }
+    // @ts-ignore
+    return input.length <= 18 ? input: (input.substr(0, max) + "...");
 }

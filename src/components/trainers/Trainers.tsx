@@ -31,7 +31,10 @@ export function Trainers() {
             // @ts-ignore
             trainersTempList.forEach(elem => result.push(<TrainersCard key={elem.userName} userName={elem.userName}
                                                                    specializations={elem.specializations}
-                                                                   description={elem.description}></TrainersCard>))
+                                                                   description={elem.description}
+                                                                       phoneNumber={elem.phoneNumber}
+                                                                       email={elem.email}
+            ></TrainersCard>))
         }
         return result;
     }
@@ -44,11 +47,8 @@ export function Trainers() {
 
     const search = (value: string) => {
         setTrainersTempList(trainersList)
-        console.log("search string: " + value)
         // @ts-ignore
         if (trainersTempList !== null && trainersTempList !== undefined && Array.isArray(trainersTempList)) {
-            // @ts-ignore
-            console.log("(before)length=" + trainersTempList.length)
             // @ts-ignore
             let filter = trainersList.slice().filter(element => {
                 if (!isBlank(element.userName) && element.userName.toLowerCase().includes(value.toLowerCase())) {
@@ -63,7 +63,6 @@ export function Trainers() {
                 }
                 return false;
             });
-            console.log("(after)length=" + filter.length);
             setTrainersTempList(filter)
         }
     }
