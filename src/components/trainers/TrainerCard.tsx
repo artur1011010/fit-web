@@ -124,7 +124,7 @@ export function TrainerCard(prop: {
                             Specjalizacje:
                         </Typography>
                         <Typography variant="body2">
-                            {prop.description}
+                            {prop.specializations}
                         </Typography>
                         <Typography variant="h6" sx={{my: 2}}>
                             Opis:

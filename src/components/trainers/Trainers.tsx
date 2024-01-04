@@ -51,13 +51,10 @@ export function Trainers() {
             // @ts-ignore
             let filter = trainersList.slice().filter(element => {
                 if (!isBlank(element.userName) && element.userName.toLowerCase().includes(value.toLowerCase())) {
-                    // console.log("pass + userName")
                     return true;
                 } else if (!isBlank(element.specializations) && element.specializations.toLowerCase().includes(value.toLowerCase())) {
-                    // console.log("pass + spec")
                     return true;
                 } else if (!isBlank(element.description) && element.description.toLowerCase().includes(value.toLowerCase())) {
-                    // console.log("pass + desc")
                     return true;
                 }
                 return false;

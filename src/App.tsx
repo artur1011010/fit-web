@@ -4,8 +4,6 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import {Provider} from 'react-redux'
-import store from './config/store'
 import ResponsiveAppBar from "./components/nav/ResponsiveAppBar";
 import {Main} from "./components/main/Main";
 import {Profile} from "./components/user/profile/Profile";
@@ -54,25 +52,13 @@ const router = createBrowserRouter([
     },
 ]);
 
-store.dispatch({
-    type: "SET_USER",
-    payload: {},
-});
-
-store.dispatch({
-    type: "SET_AUTH",
-    payload: {isLogged : false},
-})
-
 function App() {
     return (
         <div className="App">
-            <Provider store={store}>
                 <ResponsiveAppBar></ResponsiveAppBar>
                 <React.StrictMode>
                     <RouterProvider router={router}/>
                 </React.StrictMode>
-            </Provider>
         </div>
     );
 }

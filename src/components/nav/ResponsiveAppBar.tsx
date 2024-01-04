@@ -13,12 +13,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {Link, Paper} from "@mui/material";
-import {RootState} from "../../config/store";
-import {useSelector} from "react-redux";
-import {Fragment, useEffect, useRef} from "react";
+import {Fragment, useEffect} from "react";
 import {isUserLogged} from "../../config/storage";
-import {subscribe, unsubscribe} from "../../services/events";
-import { AccountCircle } from '@mui/icons-material';
 
 interface Page {
     definition: string;

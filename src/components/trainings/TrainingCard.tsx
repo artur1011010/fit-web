@@ -14,6 +14,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import {limitText} from "../../commons/FieldValidator";
 import Box from "@mui/material/Box";
+import * as string_decoder from "string_decoder";
 
 function MoreVertIcon() {
     return null;
@@ -32,12 +33,13 @@ const style = {
 };
 
 export function TrainingCard(prop: {
-    userName: string,
-    specializations: string,
+    title: string,
     description: string,
-    experience: number,
+    address: string,
     email: string,
-    phoneNumber: string
+    ownerEmail: string,
+    startTime: string,
+    duration: number,
 }) {
 
     const [open, setOpen] = React.useState(false);
@@ -72,7 +74,7 @@ export function TrainingCard(prop: {
                 <CardHeader
                     avatar={
                         <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
-                            {prop.userName.substring(0, 1)}
+                            {prop.title.substring(0, 1)}
                         </Avatar>
                     }
                     action={
@@ -80,16 +82,16 @@ export function TrainingCard(prop: {
                             <MoreVertIcon/>
                         </IconButton>
                     }
-                    title={prop.userName}
+                    title={prop.title}
                 />
                 <CardMedia
                     sx={{height: 140}}
                     image={getRandomImage()}
-                    title={prop.userName}
+                    title={prop.title}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {limitText(prop.specializations, 20)}
+                        {limitText(prop.description, 20)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {limitText(prop.description, 150)}
@@ -107,11 +109,11 @@ export function TrainingCard(prop: {
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Dane kontaktowe {prop.userName}
+                        Dane kontaktowe {prop.title}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         <p><AlternateEmailIcon></AlternateEmailIcon>{prop.email}</p>
-                        <p><LocalPhoneIcon></LocalPhoneIcon>{prop.phoneNumber}</p>
+                        <p><LocalPhoneIcon></LocalPhoneIcon>{prop.description}</p>
                         <Button size="small" onClick={handleCloseModal}>zamknij</Button>
                     </Typography>
                 </Box>
