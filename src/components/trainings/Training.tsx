@@ -5,11 +5,11 @@ import {isBlank} from "../../commons/FieldValidator";
 import Grid from "@mui/material/Grid";
 import {TrainingCard} from "./TrainingCard";
 
-export function Trainings () {
+export function Trainings() {
     const [trainersList, setTrainersList] = useState(null);
     const [trainersTempList, setTrainersTempList] = useState(null);
 
-    const url = 'http://localhost:8081/trainer?active=true';
+    const url = 'http://localhost:8083/offer';
 
     const getTrainersList = () => {
         return fetch(url)
@@ -28,9 +28,14 @@ export function Trainings () {
         let result: React.JSX.Element[] = [];
         if (Array.isArray(trainersTempList)) {
             // @ts-ignore
-            trainersTempList.forEach(elem => result.push(<TrainingCard key={elem.userName} userName={elem.userName}
-                                                                       specializations={elem.specializations}
-                                                                       description={elem.description}></TrainingCard>))
+            trainersTempList.forEach(elem => result.push(<TrainingCard key={elem.title}
+                                                                       title={elem.title}
+                                                                       description={elem.description}
+                                                                       address={elem.address}
+                                                                       ownerEmail={elem.ownerEmail}
+                                                                       startTime={elem.startTime}
+                                                                       duration={elem.duration}
+            ></TrainingCard>))
         }
         return result;
     }
@@ -48,13 +53,10 @@ export function Trainings () {
             // @ts-ignore
             let filter = trainersList.slice().filter(element => {
                 if (!isBlank(element.userName) && element.userName.toLowerCase().includes(value.toLowerCase())) {
-                    // console.log("pass + userName")
                     return true;
                 } else if (!isBlank(element.specializations) && element.specializations.toLowerCase().includes(value.toLowerCase())) {
-                    // console.log("pass + spec")
                     return true;
                 } else if (!isBlank(element.description) && element.description.toLowerCase().includes(value.toLowerCase())) {
-                    // console.log("pass + desc")
                     return true;
                 }
                 return false;
