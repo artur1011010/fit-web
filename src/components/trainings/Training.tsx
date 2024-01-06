@@ -1,7 +1,7 @@
 import {Container, TextField, Typography} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {TrainerCard} from "../trainers/TrainerCard";
-import {isBlank} from "../../commons/FieldValidator";
+import {isBlank} from "../../commons/Commons";
 import Grid from "@mui/material/Grid";
 import {TrainingCard} from "./TrainingCard";
 
@@ -28,7 +28,9 @@ export function Trainings() {
         let result: React.JSX.Element[] = [];
         if (Array.isArray(trainersTempList)) {
             // @ts-ignore
-            trainersTempList.forEach(elem => result.push(<TrainingCard key={elem.title}
+            trainersTempList.forEach(elem => result.push(<TrainingCard key={elem.id}
+                                                                       id={elem.id}
+                                                                       photo={elem.photo}
                                                                        title={elem.title}
                                                                        description={elem.description}
                                                                        address={elem.address}
@@ -42,7 +44,6 @@ export function Trainings() {
 
     const handleSearch = (event: any) => {
         let va1ue = event.target.value;
-        console.log('search: ' + va1ue)
         search(va1ue)
     }
 

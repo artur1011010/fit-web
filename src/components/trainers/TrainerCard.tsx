@@ -5,7 +5,7 @@ import {
     CardContent,
     CardHeader,
     CardMedia,
-    Container,
+    Container, Divider,
     Grid,
     Modal,
     Typography
@@ -21,7 +21,7 @@ import {blue, red} from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import {limitText} from "../../commons/FieldValidator";
+import {limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
 
 function MoreVertIcon() {
@@ -132,6 +132,7 @@ export function TrainerCard(prop: {
                         <Typography variant="body2">
                             {prop.description}
                         </Typography>
+                        <Divider sx={{mt: 2}}></Divider>
                         <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>zamknij</Button>
                     </Typography>
                 </Box>
@@ -149,6 +150,7 @@ export function TrainerCard(prop: {
                     <Typography id="modal-modal-description" sx={{mt: 2}}>
                         <p><AlternateEmailIcon></AlternateEmailIcon> {prop.email}</p>
                         <p><LocalPhoneIcon></LocalPhoneIcon> {prop.phoneNumber}</p>
+                        <Divider sx={{my: 2}}></Divider>
                         <Button size="small" onClick={() => setOpenModal2(false)}>zamknij</Button>
                     </Typography>
                 </Box>

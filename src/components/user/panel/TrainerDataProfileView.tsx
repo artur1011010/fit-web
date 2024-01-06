@@ -2,9 +2,9 @@ import * as React from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import {
-    Button, FormControlLabel,
+    FormControlLabel,
     ListItemIcon,
-    Switch,
+    Switch, Typography,
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import {ACTIONS, storeAuth} from "../../../config/storage";
@@ -15,20 +15,10 @@ import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
 import CustomTextField from "../CustomTextField";
 import {STRING_EMPTY} from "../../../commons/StaticText";
-import {ClientDto} from "../../../dto/ClientDto";
-import {parseFromString} from "../../../dto/FitnessLevel";
-import {postClientDto, postTrainerDto} from "../../../services/UserService";
+import {postTrainerDto} from "../../../services/UserService";
 import {TrainerDto} from "../../../dto/TrainerDto";
 import CustomNumberField from "../CustomNumberField";
-import CheckIcon from "@mui/icons-material/Check";
 
-function generate(element: React.ReactElement) {
-    return [0, 1, 2, 4, 5].map((value) =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
 
 const PersonalDataList = styled('div')(({theme}) => ({
     backgroundColor: theme.palette.background.paper,
@@ -49,7 +39,7 @@ export default function TrainerDataProfileView() {
             .then((res) => res.json())
             .then((d) => {
                 setTrainerData(d)
-                if(d.isProfileActive){
+                if (d.isProfileActive) {
                     setSwitcherActive(true);
                 }
             });
@@ -94,7 +84,7 @@ export default function TrainerDataProfileView() {
             .then(() => getTrainerData())
     }
 
-    const handleActiveChange = (active : boolean) => {
+    const handleActiveChange = (active: boolean) => {
         console.log('handleActiveChange: ' + active)
         const req: TrainerDto = {
             description: getDescription(),
@@ -152,10 +142,11 @@ export default function TrainerDataProfileView() {
     }
 
     const getProfileSwitcher = () => {
-        if(getIsActive()){
+        if (getIsActive()) {
             return (
                 <ListItem sx={{color: 'green'}}>
-                    <FormControlLabel control={<Switch onChange={() => handleActiveChange(false)} checked={true}/>} label='aktywny'/>
+                    <FormControlLabel control={<Switch onChange={() => handleActiveChange(false)} checked={true}/>}
+                                      label='aktywny'/>
                 </ListItem>
             )
         }
@@ -166,39 +157,76 @@ export default function TrainerDataProfileView() {
         )
     }
 
+    const getActiveTrainerPanel = () => {
+        return (
+            <>
+                {getNewTrainingForm()}
+                {getMyTrainingsList()}
+            </>
+        )
+    }
+
+    const getMyTrainingsList = () => {
+        return (
+            <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px', mt: 1}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography> lista moich treningów </Typography>
+                    </Grid>
+                </Grid>
+            </Box>
+        )
+    }
+
+    const getNewTrainingForm = () => {
+        return (
+            <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px', mt: 1}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography> listaFormularz dodawania nowych treningów</Typography>
+                    </Grid>
+                </Grid>
+            </Box>
+        )
+    }
+
 
     return (
-        <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <ListItem>
-                        <ListItemIcon>
-                            <SportsIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary='Dane trenera:'/>
-                    </ListItem>
-                    <PersonalDataList>
-                        <List>
-                            {getProfileSwitcher()}
-                            <ListItem>
-                                <CustomTextField label='Opis' value={getDescription()} handleChange={handleDescChange}
-                                                 editable={true}></CustomTextField>
-                            </ListItem>
-                            <ListItem>
-                                <CustomNumberField label='Doświadczenie w miesiacach'
-                                                   value={Number.parseInt(getExperience())}
-                                                   handleChange={handleExpChange}
-                                                   editable={true}></CustomNumberField>
-                            </ListItem>
-                            <ListItem>
-                                <CustomTextField label='Specjalizacje' value={getSpecializations()}
-                                                 handleChange={handleSpecChange} editable={true}></CustomTextField>
-                            </ListItem>
-                        </List>
-                    </PersonalDataList>
+        <>
+            <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <ListItem>
+                            <ListItemIcon>
+                                <SportsIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Dane trenera:'/>
+                        </ListItem>
+                        <PersonalDataList>
+                            <List>
+                                {getProfileSwitcher()}
+                                <ListItem>
+                                    <CustomTextField label='Opis' value={getDescription()}
+                                                     handleChange={handleDescChange}
+                                                     editable={true}></CustomTextField>
+                                </ListItem>
+                                <ListItem>
+                                    <CustomNumberField label='Doświadczenie w miesiacach'
+                                                       value={Number.parseInt(getExperience())}
+                                                       handleChange={handleExpChange}
+                                                       editable={true}></CustomNumberField>
+                                </ListItem>
+                                <ListItem>
+                                    <CustomTextField label='Specjalizacje' value={getSpecializations()}
+                                                     handleChange={handleSpecChange} editable={true}></CustomTextField>
+                                </ListItem>
+                            </List>
+                        </PersonalDataList>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Box>
+            </Box>
+            {getIsActive() ? getActiveTrainerPanel() : null}
+        </>
     )
 
 }

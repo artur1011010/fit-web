@@ -10,7 +10,7 @@ import {
     Typography
 } from "@mui/material";
 import React from "react";
-import {isBlank, isEmail, isPolishPhoneNumber} from "../../../commons/FieldValidator";
+import {isBlank, isEmail, isPolishPhoneNumber} from "../../../commons/Commons";
 import {
     DATE_ERROR_TEXT,
     EMAIL2_ERROR_TEXT,

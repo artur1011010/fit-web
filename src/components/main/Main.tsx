@@ -14,7 +14,7 @@ export function Main() {
 
     const loginUser2 = () => {
         const req: AuthenticationRequest = {
-            email: "sasas@gmail.com",
+            email: "artur.zaczek@gmail.com",
             password: "artur",
         };
         loginUser(req)
@@ -31,8 +31,8 @@ export function Main() {
 
     const registerUser2 = () => {
         const req: RegisterRequest = {
-            "name": "dsdsd",
-            "email": "sasas@gmail.com",
+            "name": "Artur_Zaczek_Trener",
+            "email": "artur.zaczek@gmail.com",
             "password": "artur",
             "phoneNumber": "0048 500 511 222",
             "gender": Gender.M,
@@ -42,6 +42,12 @@ export function Main() {
             .then(res => {
                 console.log(res);
             });
+    }
+
+    const addTrainings = () =>{
+        fetch('http://localhost:8083/offer/add', {
+            method: 'POST'
+        });
     }
     const getUserData2 = () => {
         const auth = storeAuth(ACTIONS.GET, null);
@@ -78,6 +84,7 @@ export function Main() {
                 {/*<Button variant="contained" onClick={() => clearData()} sx={{my: 2, width: '200px'}}>Clear data</Button>*/}
                 <Button variant="contained" onClick={() => addClientProfile()} sx={{my: 2, width: '200px'}}>Dodanie profilu klienta</Button>
                 <Button variant="contained" onClick={() => add5Trainers()} sx={{my: 2, width: '200px'}}>dodanie 5 trenerów</Button>
+                <Button variant="contained" onClick={() => addTrainings()} sx={{my: 2, width: '200px'}}>dodanie treningów</Button>
             </Container>
         </div>
     )

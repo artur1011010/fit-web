@@ -1,5 +1,16 @@
-import React, {useState} from "react";
-import {Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Modal, Typography} from "@mui/material";
+import React from "react";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardHeader,
+    CardMedia,
+    Container, Divider,
+    Grid,
+    Modal,
+    Typography
+} from "@mui/material";
 import imageUrl1 from './images/gym1.jpg'
 import imageUrl2 from './images/gym2.jpg'
 import imageUrl3 from './images/gym3.png'
@@ -8,17 +19,15 @@ import imageUrl5 from './images/gym5.png'
 import imageUrl6 from './images/gym6.png'
 import imageUrl7 from './images/gym7.jpg'
 import Avatar from "@mui/material/Avatar";
-import {red} from "@mui/material/colors";
-import IconButton from "@mui/material/IconButton";
+import {blue, red} from "@mui/material/colors";
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import {limitText} from "../../commons/FieldValidator";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PlaceIcon from '@mui/icons-material/Place';
+import {editDate, limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
-import * as string_decoder from "string_decoder";
 
-function MoreVertIcon() {
-    return null;
-}
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -32,7 +41,16 @@ const style = {
     p: 4,
 };
 
+const headerJustify = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'start',
+    mb: 1
+}
+
+
 export function TrainingCard(prop: {
+    id: number,
     title: string,
     description: string,
     address: string,
@@ -40,15 +58,16 @@ export function TrainingCard(prop: {
     ownerEmail: string,
     startTime: string,
     duration: number,
+    photo: number,
 }) {
+    const [modal1, setOpenModal1] = React.useState(false);
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpenModal = () => setOpen(true);
-    const handleCloseModal = () => setOpen(false);
+    const handleSubscribe = () => {
+        console.log("zapisz sie: " + prop.id)
+    }
 
-    const getRandomImage = () => {
-        const imgNo = Math.floor(Math.random() * (7 - 1 + 1) + 1)
-        switch (imgNo) {
+    const getImage = (photoNo: number) => {
+        switch (photoNo) {
             case 1:
                 return imageUrl1;
             case 2:
@@ -68,25 +87,37 @@ export function TrainingCard(prop: {
         }
     }
 
+    const renderTitle = () => {
+        return (
+            <Container disableGutters>
+                <Container disableGutters sx={headerJustify}>
+                    <AccessTimeIcon></AccessTimeIcon> <Typography sx={{ml: 1}}>{prop.duration} min. </Typography>
+                </Container>
+                <Container disableGutters sx={headerJustify}>
+                    <CalendarMonthIcon></CalendarMonthIcon> <Typography sx={{ml: 1}}
+                                                                        align='left'>{editDate(prop.startTime)}</Typography>
+                </Container>
+                <Container disableGutters sx={headerJustify}>
+                    <PlaceIcon></PlaceIcon> <Typography sx={{ml: 1}} align='left'>{prop.address}</Typography>
+                </Container>
+            </Container>
+        )
+    }
+
     return (
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={4}>
             <Card sx={{maxWidth: 345}}>
                 <CardHeader
                     avatar={
-                        <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
-                            {prop.title.substring(0, 1)}
+                        <Avatar sx={{bgcolor: red[500]}} aria-label="training-card">
+                            {prop.ownerEmail.substring(0, 1)}
                         </Avatar>
                     }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon/>
-                        </IconButton>
-                    }
-                    title={prop.title}
+                    title={renderTitle()}
                 />
                 <CardMedia
                     sx={{height: 140}}
-                    image={getRandomImage()}
+                    image={getImage(prop.photo)}
                     title={prop.title}
                 />
                 <CardContent>
@@ -98,23 +129,58 @@ export function TrainingCard(prop: {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" onClick={handleOpenModal}>Zapisz się</Button>
+                    <Button size="small" onClick={() => setOpenModal1(true)}>Wiecej</Button>
                 </CardActions>
             </Card>
             <Modal
-                open={open}
-                onClose={handleCloseModal}
-                aria-labelledby="kontakt do trenera"
-                aria-describedby="kontakt do trenera"
+                open={modal1}
+                onClose={() => setOpenModal1(false)}
+                aria-labelledby="szczegóły treningu"
+                aria-describedby="szczegóły treningu"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Dane kontaktowe {prop.title}
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <p><AlternateEmailIcon></AlternateEmailIcon>{prop.email}</p>
-                        <p><LocalPhoneIcon></LocalPhoneIcon>{prop.description}</p>
-                        <Button size="small" onClick={handleCloseModal}>zamknij</Button>
+                    <Container sx={{display: 'flex', flexDirection: 'row'}}>
+                        <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
+                            {prop.ownerEmail.substring(0, 1)}
+                        </Avatar>
+                        <Typography id="modal-modal-description" sx={{m: 1}}>
+                            {prop.ownerEmail}
+                        </Typography>
+                    </Container>
+                    <Container sx={{mt: 3}}>
+                        <Container disableGutters sx={headerJustify}>
+                            <AccessTimeIcon></AccessTimeIcon> <Typography
+                            sx={{ml: 1}}>{prop.duration} min. </Typography>
+                        </Container>
+                        <Container disableGutters sx={headerJustify}>
+                            <CalendarMonthIcon></CalendarMonthIcon> <Typography sx={{ml: 1}}
+                                                                                align='left'>{editDate(prop.startTime)}</Typography>
+                        </Container>
+                        <Container disableGutters sx={headerJustify}>
+                            <PlaceIcon></PlaceIcon> <Typography sx={{ml: 1}} align='left'>{prop.address}</Typography>
+                        </Container>
+                    </Container>
+                    <Typography id="modal-modal-description" sx={{mt: 2, ml: 3}}>
+                        <Typography variant="h5">
+                            {prop.title}
+                        </Typography>
+                        <Typography variant="h6" sx={{my: 2}}>
+                            Opis:
+                        </Typography>
+                        <Typography variant="body2">
+                            {prop.description}
+                        </Typography>
+                        <p><AlternateEmailIcon></AlternateEmailIcon> {prop.ownerEmail}</p>
+                        <Divider></Divider>
+                        <Container disableGutters sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            mb: 1
+                        }}>
+                            <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>zamknij</Button>
+                            <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>Zapisz się</Button>
+                        </Container>
                     </Typography>
                 </Box>
             </Modal>

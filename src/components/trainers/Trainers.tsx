@@ -2,7 +2,7 @@ import {Container, TextField} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {TrainerCard} from "./TrainerCard";
 import Grid from "@mui/material/Grid";
-import {isBlank} from "../../commons/FieldValidator";
+import {isBlank} from "../../commons/Commons";
 
 export function Trainers() {
 

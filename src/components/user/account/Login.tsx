@@ -4,7 +4,7 @@ import {AuthenticationRequest} from "../../../dto/AuthenticationRequest";
 import {loginUser} from "../../../services/auth";
 import {AuthDto} from "../../../dto/AuthDto";
 import {ACTIONS, storeAuth} from "../../../config/storage";
-import {isEmail} from "../../../commons/FieldValidator";
+import {isEmail} from "../../../commons/Commons";
 import {EMAIL_ERROR_TEXT, PASSWORD_ERROR_TEXT, STRING_EMPTY} from "../../../commons/StaticText";
 import Box from "@mui/material/Box";
 

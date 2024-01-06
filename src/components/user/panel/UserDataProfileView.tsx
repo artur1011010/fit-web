@@ -9,10 +9,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import {ListItemIcon} from "@mui/material";
 import {getEmptyUserDto} from "../../../dto/UserDto";
 import {useEffect, useState} from "react";
-import * as url from "url";
 import {ACTIONS, storeAuth} from "../../../config/storage";
 import {getPolishName} from "../../../dto/Gender";
-import {isBlank} from "../../../commons/FieldValidator";
 import CustomTextField from "../CustomTextField";
 
 function generate(element: React.ReactElement) {
