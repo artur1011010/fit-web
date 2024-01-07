@@ -1,7 +1,7 @@
 import {Button, Container, FormControl, FormLabel, Link, MenuItem, Select, TextField, Typography} from "@mui/material";
 import React from "react";
 import {AuthenticationRequest} from "../../../dto/AuthenticationRequest";
-import {loginUser} from "../../../services/auth";
+import {loginUser} from "../../../services/AuthService";
 import {AuthDto} from "../../../dto/AuthDto";
 import {ACTIONS, storeAuth} from "../../../config/storage";
 import {isEmail} from "../../../commons/Commons";

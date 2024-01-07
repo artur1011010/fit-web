@@ -9,7 +9,7 @@ export function Trainings() {
     const [trainersList, setTrainersList] = useState(null);
     const [trainersTempList, setTrainersTempList] = useState(null);
 
-    const url = 'http://localhost:8083/offer';
+    const url = 'http://localhost:8083/offer/all';
 
     const getTrainersList = () => {
         return fetch(url)

@@ -15,6 +15,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import {Link, Paper} from "@mui/material";
 import {Fragment, useEffect} from "react";
 import {isUserLogged} from "../../config/storage";
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Page {
     definition: string;
@@ -23,7 +24,7 @@ interface Page {
 
 const pages: Page[] = [
     {definition: "Trenerzy", site: "/trainers"},
-    {definition: "Treningi", site: "/trainings"}
+    {definition: "Treningi", site: "/trainings"},
 ];
 
 const settingsLogged: Page[] = [
@@ -174,6 +175,8 @@ function ResponsiveAppBar() {
                                 }}
                             >
                                 {pages.map((page) => (
+                                    <Container sx={{display: 'flex', flexDirection: 'row'}}>
+                                        <SearchIcon sx={{mt: 2}}></SearchIcon>
                                         <Button
                                             href={page.site}
                                             key={page.definition}
@@ -182,6 +185,7 @@ function ResponsiveAppBar() {
                                         >
                                             {page.definition}
                                         </Button>
+                                    </Container>
                                 ))}
                             </Menu>
                         </Box>
@@ -206,14 +210,17 @@ function ResponsiveAppBar() {
                         </Typography>
                         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                             {pages.map((page) => (
-                                <Button
-                                    href={page.site}
-                                    key={page.definition}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{my: 2, color: 'white', display: 'block'}}
-                                >
-                                    {page.definition}
-                                </Button>
+                                <>
+                                    <SearchIcon sx={{mt: 3, ml: 2}}></SearchIcon>
+                                    <Button
+                                        href={page.site}
+                                        key={page.definition}
+                                        onClick={handleCloseNavMenu}
+                                        sx={{my: 2, color: 'white', display: 'block'}}
+                                    >
+                                        {page.definition}
+                                    </Button>
+                                </>
                             ))}
                         </Box>
 

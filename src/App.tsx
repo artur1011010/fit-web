@@ -13,6 +13,9 @@ import {Trainers} from "./components/trainers/Trainers";
 import {Login} from "./components/user/account/Login";
 import {Register} from "./components/user/account/Register";
 import {Logout} from "./components/user/account/Logout";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+
 
 const router = createBrowserRouter([
     {
@@ -55,10 +58,12 @@ const router = createBrowserRouter([
 function App() {
     return (
         <div className="App">
-                <ResponsiveAppBar></ResponsiveAppBar>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <ResponsiveAppBar></ResponsiveAppBar>
                 <React.StrictMode>
                     <RouterProvider router={router}/>
                 </React.StrictMode>
+            </LocalizationProvider>
         </div>
     );
 }

@@ -11,6 +11,7 @@ export default function CustomTextField(prop: {
     value: string | undefined,
     editable: boolean
     handleChange?: Function | null,
+    multiline?: boolean
 }) {
     const [editActive, setEditActive] = useState(false);
     const [value, setValue] = useState('');
@@ -42,13 +43,48 @@ export default function CustomTextField(prop: {
     };
 
     const fieldRef = useRef()
+
+    const renderMultiline = () => {
+        if (editActive) {
+            return (
+                <>
+                    <TextField multiline rows={4} sx={style} InputLabelProps={{shrink: true}} label={prop.label}
+                               id='field' type='text' margin="none"
+                               inputRef={fieldRef} inputProps={{ maxLength: 8000 }}>
+                    </TextField>
+                    <Button onClick={() => handleSubmit()}>
+                        <CheckIcon></CheckIcon>
+                    </Button>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <TextField multiline rows={4} sx={prop.editable ? style : editableStyle} InputLabelProps={{shrink: true}}
+                               disabled={true} value={prop.value}
+                               label={prop.label} id='field' type='text' margin="none"
+                               onChange={handleInputChange}
+                               inputProps={{ maxLength: 8000 }}
+                    ></TextField>
+                    {prop.editable ? <Button onClick={() => handleEdit()}>
+                        <ModeEditIcon></ModeEditIcon>
+                    </Button> : null}
+                </>
+            );
+        }
+    }
+
     const render = () => {
+        if(prop.multiline) {
+            return renderMultiline()
+        }
         if (editActive) {
             return (
                 <>
                     <TextField sx={style} InputLabelProps={{shrink: true}} label={prop.label}
                                id='field' type='text' margin="none"
-                               inputRef={fieldRef}>
+                               inputRef={fieldRef}
+                               inputProps={{ maxLength: 255 }}>
                     </TextField>
                     <Button onClick={() => handleSubmit()}>
                         <CheckIcon></CheckIcon>
@@ -61,7 +97,7 @@ export default function CustomTextField(prop: {
                     <TextField sx={prop.editable ? style : editableStyle} InputLabelProps={{shrink: true}}
                                disabled={true} value={prop.value}
                                label={prop.label} id='field' type='text' margin="none"
-                               onChange={handleInputChange}
+                               onChange={handleInputChange} inputProps={{ maxLength: 255 }}
                     ></TextField>
                     {prop.editable ? <Button onClick={() => handleEdit()}>
                         <ModeEditIcon></ModeEditIcon>

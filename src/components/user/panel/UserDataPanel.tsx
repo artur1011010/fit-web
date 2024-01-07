@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Container from "@mui/material/Container";
 import UserDataProfileView from "./UserDataProfileView";
 import ClientDataProfileView from "./ClientDataProfileView";
-import TrainerDataProfileView from "./TrainerDataProfileView";
+import TrainerDataProfileView from "./trainer/TrainerDataProfileView";
 
 interface TabPanelProps {
     children?: React.ReactNode;

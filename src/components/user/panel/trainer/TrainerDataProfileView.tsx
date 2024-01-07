@@ -7,17 +7,19 @@ import {
     Switch, Typography,
 } from "@mui/material";
 import {useEffect, useState} from "react";
-import {ACTIONS, storeAuth} from "../../../config/storage";
+import {ACTIONS, storeAuth} from "../../../../config/storage";
 import Grid from "@mui/material/Grid";
 import ListItem from "@mui/material/ListItem";
-import SportsIcon from '@mui/icons-material/Sports';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import ListItemText from "@mui/material/ListItemText";
 import List from "@mui/material/List";
-import CustomTextField from "../CustomTextField";
-import {STRING_EMPTY} from "../../../commons/StaticText";
-import {postTrainerDto} from "../../../services/UserService";
-import {TrainerDto} from "../../../dto/TrainerDto";
-import CustomNumberField from "../CustomNumberField";
+import CustomTextField from "../../CustomTextField";
+import {STRING_EMPTY} from "../../../../commons/StaticText";
+import {postTrainerDto} from "../../../../services/UserService";
+import {TrainerDto} from "../../../../dto/TrainerDto";
+import CustomNumberField from "../../CustomNumberField";
+import {AddTraining} from "./AddTraining";
+import {TrainingList} from "./TrainingList";
 
 
 const PersonalDataList = styled('div')(({theme}) => ({
@@ -160,30 +162,20 @@ export default function TrainerDataProfileView() {
     const getActiveTrainerPanel = () => {
         return (
             <>
-                {getNewTrainingForm()}
                 {getMyTrainingsList()}
+                <AddTraining></AddTraining>
             </>
         )
     }
 
+
+
     const getMyTrainingsList = () => {
         return (
-            <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px', mt: 1}}>
+            <Box sx={{flexGrow: 1, border: 'solid black 2px', borderRadius: '3px', padding: '20px', mt: 1}}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Typography> lista moich treningów </Typography>
-                    </Grid>
-                </Grid>
-            </Box>
-        )
-    }
-
-    const getNewTrainingForm = () => {
-        return (
-            <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px', mt: 1}}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Typography> listaFormularz dodawania nowych treningów</Typography>
+                        <TrainingList></TrainingList>
                     </Grid>
                 </Grid>
             </Box>
@@ -193,12 +185,12 @@ export default function TrainerDataProfileView() {
 
     return (
         <>
-            <Box sx={{flexGrow: 1, border: 'solid black 1px', borderRadius: '10px', padding: '20px'}}>
+            <Box sx={{flexGrow: 1,border: 'solid black 2px', borderRadius: '3px', padding: '20px'}}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <ListItem>
                             <ListItemIcon>
-                                <SportsIcon/>
+                                <SportsScoreIcon/>
                             </ListItemIcon>
                             <ListItemText primary='Dane trenera:'/>
                         </ListItem>
@@ -208,7 +200,7 @@ export default function TrainerDataProfileView() {
                                 <ListItem>
                                     <CustomTextField label='Opis' value={getDescription()}
                                                      handleChange={handleDescChange}
-                                                     editable={true}></CustomTextField>
+                                                     editable={true} multiline={true}></CustomTextField>
                                 </ListItem>
                                 <ListItem>
                                     <CustomNumberField label='Doświadczenie w miesiacach'

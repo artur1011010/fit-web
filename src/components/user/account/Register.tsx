@@ -23,7 +23,7 @@ import {
 import Box from "@mui/material/Box";
 import {RegisterRequest} from "../../../dto/RegisterRequest";
 import {fromString, Gender} from "../../../dto/Gender";
-import {registerUser} from "../../../services/auth";
+import {registerUser} from "../../../services/AuthService";
 import {AuthDto} from "../../../dto/AuthDto";
 import {ACTIONS, storeAuth} from "../../../config/storage";
 
