@@ -8,23 +8,15 @@ import Grid from '@mui/material/Grid';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import {ListItemIcon} from "@mui/material";
 import {useEffect, useState} from "react";
-import {ACTIONS, storeAuth} from "../../../config/storage";
-import CustomTextField from "../CustomTextField";
-import {STRING_EMPTY} from "../../../commons/StaticText";
-import {postClientDto} from "../../../services/UserService";
-import {RegisterRequest} from "../../../dto/RegisterRequest";
-import {Gender} from "../../../dto/Gender";
-import {ClientDto} from "../../../dto/ClientDto";
-import {parseFromString} from "../../../dto/FitnessLevel";
-import CustomSelectField from "../CustomSelectField";
+import {ACTIONS, storeAuth} from "../../../../config/storage";
+import CustomTextField from "../../CustomTextField";
+import {STRING_EMPTY} from "../../../../commons/StaticText";
+import {postClientDto} from "../../../../services/UserService";
+import {ClientDto} from "../../../../dto/ClientDto";
+import {parseFromString} from "../../../../dto/FitnessLevel";
+import CustomSelectField from "../../CustomSelectField";
+import {MyTrainingList} from "./MyTrainingList";
 
-function generate(element: React.ReactElement) {
-    return [0, 1, 2, 4, 5].map((value) =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
 
 const PersonalDataList = styled('div')(({theme}) => ({
     backgroundColor: theme.palette.background.paper,
@@ -117,33 +109,45 @@ export default function ClientDataProfileView() {
 
 
     return (
-        <Box sx={{flexGrow: 1, border: 'solid black 2px', borderRadius: '3px', padding: '20px'}}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <ListItem>
-                        <ListItemIcon>
-                            <AssignmentIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary='Dane klienta:'/>
-                    </ListItem>
-                    <PersonalDataList>
-                        <List>
-                            <ListItem>
-                                <CustomTextField multiline={true} label='Biografia' value={getBio()} handleChange={handleBioChange}
-                                                 editable={true}></CustomTextField>
-                            </ListItem>
-                            <ListItem>
-                                <CustomTextField label='Moje cele' value={getGoals()} handleChange={handleGoalsChange}
-                                                 editable={true}></CustomTextField>
-                            </ListItem>
-                            <ListItem>
-                                <CustomSelectField label='Poziom doświadczenia' value={getFitnessLevel()}
-                                                   handleChange={handleFitnessLevelChange} editable={true}></CustomSelectField>
-                            </ListItem>
-                        </List>
-                    </PersonalDataList>
+        <>
+            <Box sx={{flexGrow: 1, border: 'solid black 2px', borderRadius: '3px', padding: '20px'}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <ListItem>
+                            <ListItemIcon>
+                                <AssignmentIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary='Dane klienta:'/>
+                        </ListItem>
+                        <PersonalDataList>
+                            <List>
+                                <ListItem>
+                                    <CustomTextField multiline={true} label='Biografia' value={getBio()}
+                                                     handleChange={handleBioChange}
+                                                     editable={true}></CustomTextField>
+                                </ListItem>
+                                <ListItem>
+                                    <CustomTextField label='Moje cele' value={getGoals()}
+                                                     handleChange={handleGoalsChange}
+                                                     editable={true}></CustomTextField>
+                                </ListItem>
+                                <ListItem>
+                                    <CustomSelectField label='Poziom doświadczenia' value={getFitnessLevel()}
+                                                       handleChange={handleFitnessLevelChange}
+                                                       editable={true}></CustomSelectField>
+                                </ListItem>
+                            </List>
+                        </PersonalDataList>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Box>
+            </Box>
+            <Box sx={{flexGrow: 1, border: 'solid black 2px', borderRadius: '3px', padding: '20px', mt:1}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <MyTrainingList></MyTrainingList>
+                    </Grid>
+                </Grid>
+            </Box>
+        </>
     );
 }

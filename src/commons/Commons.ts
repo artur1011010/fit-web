@@ -23,7 +23,7 @@ export const isPolishPhoneNumber = (input: string): boolean => {
     return regex.test(input);
 }
 
-export const isBlank = (input: string): boolean => {
+export const isBlank = (input?: string): boolean => {
     return input === undefined || input === null || input.trim().length === 0;
 }
 

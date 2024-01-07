@@ -1,6 +1,6 @@
 import {ACTIONS, storeAuth} from "../../../../config/storage";
 import React, {useEffect, useState} from "react";
-import {TrainingListItem} from "./TrainingListItem";
+import {MyTrainingListItem} from "./MyTrainingListItem"
 import List from "@mui/material/List";
 import {ListItemIcon, Typography} from "@mui/material";
 import ListItem from "@mui/material/ListItem";
@@ -8,11 +8,11 @@ import SportsIcon from "@mui/icons-material/Sports";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
 
-export function TrainingList() {
+export function MyTrainingList() {
 
     const [trainingList, setTrainingList] = useState(null);
 
-    const url = 'http://localhost:8083/offer';
+    const url = 'http://localhost:8083/offer/client';
     const getMyTrainingsList = () => {
         const auth = storeAuth(ACTIONS.GET, null);
         return fetch(url, {
@@ -28,15 +28,16 @@ export function TrainingList() {
         getMyTrainingsList();
     }, []);
 
-    const removeTrainingById = (id: number) => {
+    const resignTraining = (id: number) => {
         console.log(`featching:\n${url}?trainingId=${id}`)
         const auth = storeAuth(ACTIONS.GET, null);
         return fetch(`${url}?trainingId=${id}`, {
             headers: {Authorization: `Bearer ${auth.access_token}`},
             method: 'DELETE'
         })
-            .then(() => {
-                getMyTrainingsList()
+            .then((res) => res.json())
+            .then((d) => {
+                setTrainingList(d)
             });
     }
 
@@ -46,18 +47,18 @@ export function TrainingList() {
         // @ts-ignore
         if (Array.isArray(trainingList) && trainingList.length !== 0) {
             // @ts-ignore
-            trainingList.forEach(elem => result.push(<TrainingListItem key={elem.id}
-                                                                       id={elem.id}
-                                                                       photo={elem.photo}
-                                                                       title={elem.title}
-                                                                       description={elem.description}
-                                                                       address={elem.address}
-                                                                       ownerEmail={elem.ownerEmail}
-                                                                       clientEmail={elem.clientEmail}
-                                                                       startTime={elem.startTime}
-                                                                       duration={elem.duration}
-                                                                       removeFunction={removeTrainingById}
-            ></TrainingListItem>))
+            trainingList.forEach(elem => result.push(<MyTrainingListItem key={elem.id}
+                                                                         id={elem.id}
+                                                                         photo={elem.photo}
+                                                                         title={elem.title}
+                                                                         description={elem.description}
+                                                                         address={elem.address}
+                                                                         ownerEmail={elem.ownerEmail}
+                                                                         clientEmail={elem.clientEmail}
+                                                                         startTime={elem.startTime}
+                                                                         duration={elem.duration}
+                                                                         resignTraining={resignTraining}
+            ></MyTrainingListItem>))
             return result;
         }
         return (
@@ -72,7 +73,7 @@ export function TrainingList() {
                 <ListItemIcon>
                     <SportsIcon/>
                 </ListItemIcon>
-                <ListItemText primary='Lista oferowanych treningów:'/>
+                <ListItemText primary='Lista Treningów na które się zapisałeś:'/>
             </ListItem>
             <List dense={true}>
                 {renderList()}

@@ -4,12 +4,13 @@ import {TrainerCard} from "../trainers/TrainerCard";
 import {isBlank} from "../../commons/Commons";
 import Grid from "@mui/material/Grid";
 import {TrainingCard} from "./TrainingCard";
+import ScrollToTopFab from "../main/ScrollToTopFab";
 
 export function Trainings() {
     const [trainersList, setTrainersList] = useState(null);
     const [trainersTempList, setTrainersTempList] = useState(null);
 
-    const url = 'http://localhost:8083/offer/all';
+    const url = 'http://localhost:8083/offer/all?active=true&current=true';
 
     const getTrainersList = () => {
         return fetch(url)
@@ -59,6 +60,12 @@ export function Trainings() {
                     return true;
                 } else if (!isBlank(element.description) && element.description.toLowerCase().includes(value.toLowerCase())) {
                     return true;
+                } else if (!isBlank(element.address) && element.address.toLowerCase().includes(value.toLowerCase())) {
+                    return true;
+                }else if (!isBlank(element.ownerEmail) && element.ownerEmail.toLowerCase().includes(value.toLowerCase())) {
+                    return true;
+                }else if (!isBlank(element.title) && element.title.toLowerCase().includes(value.toLowerCase())) {
+                    return true;
                 }
                 return false;
             });
@@ -77,6 +84,7 @@ export function Trainings() {
                 </Grid>
                 {renderList()}
             </Grid>
+            <ScrollToTopFab></ScrollToTopFab>
         </Container>
     )
 }

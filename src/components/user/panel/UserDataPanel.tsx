@@ -4,7 +4,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Container from "@mui/material/Container";
 import UserDataProfileView from "./UserDataProfileView";
-import ClientDataProfileView from "./ClientDataProfileView";
+import ClientDataProfileView from "./client/ClientDataProfileView";
 import TrainerDataProfileView from "./trainer/TrainerDataProfileView";
 
 interface TabPanelProps {

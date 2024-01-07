@@ -27,6 +27,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PlaceIcon from '@mui/icons-material/Place';
 import {editDate, limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
+import {ACTIONS, storeAuth} from "../../config/storage";
 
 
 const style = {
@@ -48,7 +49,6 @@ const headerJustify = {
     mb: 1
 }
 
-
 export function TrainingCard(prop: {
     id: number,
     title: string,
@@ -62,8 +62,23 @@ export function TrainingCard(prop: {
 }) {
     const [modal1, setOpenModal1] = React.useState(false);
 
-    const handleSubscribe = () => {
+    const handleSignup = () => {
         console.log("zapisz sie: " + prop.id)
+        signupOnTraining(prop.id)
+    }
+
+    const url = 'http://localhost:8083/offer/signup';
+
+    const signupOnTraining = (id: number) => {
+        console.log(`featching:\n${url}?trainingId=${id}`)
+        const auth = storeAuth(ACTIONS.GET, null);
+        return fetch(`${url}?trainingId=${id}`, {
+            headers: {Authorization: `Bearer ${auth.access_token}`},
+            method: 'PATCH'
+        })
+            .then(() => {
+                setOpenModal1(false)
+            });
     }
 
     const getImage = (photoNo: number) => {
@@ -179,7 +194,7 @@ export function TrainingCard(prop: {
                             mb: 1
                         }}>
                             <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>zamknij</Button>
-                            <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>Zapisz się</Button>
+                            <Button size="small" onClick={handleSignup} sx={{mt: 2}}>Zapisz się</Button>
                         </Container>
                     </Typography>
                 </Box>

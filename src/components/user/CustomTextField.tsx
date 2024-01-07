@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import ListItem from "@mui/material/ListItem";
-import {Button, ListItemIcon, TextField} from "@mui/material";
+import {Button, ListItemIcon, TextField, Tooltip} from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import * as React from "react";
@@ -50,32 +50,35 @@ export default function CustomTextField(prop: {
                 <>
                     <TextField multiline rows={4} sx={style} InputLabelProps={{shrink: true}} label={prop.label}
                                id='field' type='text' margin="none"
-                               inputRef={fieldRef} inputProps={{ maxLength: 8000 }}>
+                               inputRef={fieldRef} inputProps={{maxLength: 8000}}>
                     </TextField>
-                    <Button onClick={() => handleSubmit()}>
-                        <CheckIcon></CheckIcon>
-                    </Button>
+                    <Tooltip title="zatwierdź zmiany">
+                        <Button onClick={() => handleSubmit()}>
+                            <CheckIcon></CheckIcon>
+                        </Button>
+                    </Tooltip>
                 </>
             );
         } else {
             return (
                 <>
-                    <TextField multiline rows={4} sx={prop.editable ? style : editableStyle} InputLabelProps={{shrink: true}}
+                    <TextField multiline rows={4} sx={prop.editable ? style : editableStyle}
+                               InputLabelProps={{shrink: true}}
                                disabled={true} value={prop.value}
                                label={prop.label} id='field' type='text' margin="none"
                                onChange={handleInputChange}
-                               inputProps={{ maxLength: 8000 }}
+                               inputProps={{maxLength: 8000}}
                     ></TextField>
-                    {prop.editable ? <Button onClick={() => handleEdit()}>
+                    {prop.editable ? <Tooltip title="edycja"><Button onClick={() => handleEdit()}>
                         <ModeEditIcon></ModeEditIcon>
-                    </Button> : null}
+                    </Button></Tooltip> : null}
                 </>
             );
         }
     }
 
     const render = () => {
-        if(prop.multiline) {
+        if (prop.multiline) {
             return renderMultiline()
         }
         if (editActive) {
@@ -84,11 +87,13 @@ export default function CustomTextField(prop: {
                     <TextField sx={style} InputLabelProps={{shrink: true}} label={prop.label}
                                id='field' type='text' margin="none"
                                inputRef={fieldRef}
-                               inputProps={{ maxLength: 255 }}>
+                               inputProps={{maxLength: 255}}>
                     </TextField>
-                    <Button onClick={() => handleSubmit()}>
-                        <CheckIcon></CheckIcon>
-                    </Button>
+                    <Tooltip title="zatwiedź zmiany">
+                        <Button onClick={() => handleSubmit()}>
+                            <CheckIcon></CheckIcon>
+                        </Button>
+                    </Tooltip>
                 </>
             );
         } else {
@@ -97,11 +102,13 @@ export default function CustomTextField(prop: {
                     <TextField sx={prop.editable ? style : editableStyle} InputLabelProps={{shrink: true}}
                                disabled={true} value={prop.value}
                                label={prop.label} id='field' type='text' margin="none"
-                               onChange={handleInputChange} inputProps={{ maxLength: 255 }}
+                               onChange={handleInputChange} inputProps={{maxLength: 255}}
                     ></TextField>
-                    {prop.editable ? <Button onClick={() => handleEdit()}>
-                        <ModeEditIcon></ModeEditIcon>
-                    </Button> : null}
+                    {prop.editable ?
+                        <Tooltip title="edycja">
+                            <Button onClick={() => handleEdit()}>
+                                <ModeEditIcon></ModeEditIcon>
+                            </Button></Tooltip> : null}
                 </>
             );
         }

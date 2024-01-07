@@ -1,6 +1,6 @@
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
-import {Button, Container, Divider, ListItemAvatar, Modal, Typography} from "@mui/material";
+import {Button, Container, Divider, ListItemAvatar, Modal, Tooltip, Typography} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import ListItemText from "@mui/material/ListItemText";
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -13,7 +13,6 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PlaceIcon from "@mui/icons-material/Place";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import Tooltip from "@mui/material/Tooltip";
 
 const modalStyle = {
     position: 'absolute' as 'absolute',
@@ -34,7 +33,7 @@ const headerJustify = {
     mb: 1
 }
 
-export function TrainingListItem(prop: {
+export function MyTrainingListItem(prop: {
     id: number,
     title: string,
     description: string,
@@ -45,10 +44,11 @@ export function TrainingListItem(prop: {
     duration: number,
     photo: number,
     clientEmail?: string
-    removeFunction: Function
+    resignTraining: Function
 }) {
 
     const [modal1, setOpenModal1] = React.useState(false);
+
 
     const getSecondaryStyle = () => {
         if (isBlank(prop.clientEmail)) {
@@ -62,8 +62,8 @@ export function TrainingListItem(prop: {
             <ListItem
                 secondaryAction={
                     <IconButton edge="end" aria-label="delete">
-                        <Tooltip title="Usuń trening">
-                            <RemoveCircleOutlineIcon onClick={() => prop.removeFunction(prop.id)}/>
+                        <Tooltip title="Wypisz się z treningu">
+                            <RemoveCircleOutlineIcon onClick={() => prop.resignTraining(prop.id)}/>
                         </Tooltip>
                     </IconButton>
                 }
@@ -129,8 +129,7 @@ export function TrainingListItem(prop: {
                             mb: 1
                         }}>
                             <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>zamknij</Button>
-                            <Button size="small" onClick={() => prop.removeFunction(prop.id)} sx={{mt: 2}}>Usuń
-                                trening</Button>
+                            <Button size="small" onClick={() => prop.resignTraining(prop.id)} sx={{mt: 2}}>Wypisz się</Button>
                         </Container>
                     </Typography>
                 </Box>

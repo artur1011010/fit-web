@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {TrainerCard} from "./TrainerCard";
 import Grid from "@mui/material/Grid";
 import {isBlank} from "../../commons/Commons";
+import ScrollToTopFab from "../main/ScrollToTopFab";
 
 export function Trainers() {
 
@@ -74,6 +75,7 @@ export function Trainers() {
                 </Grid>
                 {renderList()}
             </Grid>
+            <ScrollToTopFab></ScrollToTopFab>
         </Container>
     )
 }

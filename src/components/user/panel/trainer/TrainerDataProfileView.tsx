@@ -161,10 +161,7 @@ export default function TrainerDataProfileView() {
 
     const getActiveTrainerPanel = () => {
         return (
-            <>
-                {getMyTrainingsList()}
                 <AddTraining></AddTraining>
-            </>
         )
     }
 
@@ -217,6 +214,7 @@ export default function TrainerDataProfileView() {
                     </Grid>
                 </Grid>
             </Box>
+            {getMyTrainingsList()}
             {getIsActive() ? getActiveTrainerPanel() : null}
         </>
     )
