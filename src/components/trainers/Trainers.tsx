@@ -66,17 +66,17 @@ export function Trainers() {
     }
 
     return (
-        <Container sx={{display: "flex", justifyContent: "center", alignItems: "center", my: 4}}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField sx={{width: '100%', my: 4}}
-                               label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
-                               onChange={handleSearch}></TextField>
+            <Container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField sx={{width: '100%', my: 4}}
+                                   label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
+                                   onChange={handleSearch}></TextField>
 
+                    </Grid>
+                    {renderList()}
                 </Grid>
-                {renderList()}
-            </Grid>
-            <ScrollToTopFab></ScrollToTopFab>
-        </Container>
+                <ScrollToTopFab></ScrollToTopFab>
+            </Container>
     )
 }

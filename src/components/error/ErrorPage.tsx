@@ -1,4 +1,6 @@
 import {useRouteError} from "react-router-dom";
+import {Image} from "@mui/icons-material";
+import img from "./error.gif"
 
 
 export function ErrorPage() {
@@ -8,11 +10,8 @@ export function ErrorPage() {
     return (
         <div id="error-page">
             <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <p>
-                <i> {(error as Error)?.message ||
-                    (error as { statusText?: string })?.statusText}</i>
-            </p>
+            <p>Mamy problem :(</p>
+            <img src={img} alt="error"></img>
         </div>
     );
 }

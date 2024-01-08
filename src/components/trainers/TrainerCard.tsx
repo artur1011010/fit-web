@@ -10,7 +10,7 @@ import {
     Modal,
     Typography
 } from "@mui/material";
-import React, {useState} from "react";
+import React from "react";
 import imageUrl1 from './images/trainer1.png'
 import imageUrl2 from './images/trainer2.jpg'
 import imageUrl3 from './images/trainer3.jpg'
@@ -21,9 +21,11 @@ import {blue, red} from "@mui/material/colors";
 import IconButton from "@mui/material/IconButton";
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import ShareIcon from '@mui/icons-material/Share';
 import {limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
 import {CustomRating} from "./rating/CustomRating";
+import Tooltip from "@mui/material/Tooltip";
 
 function MoreVertIcon() {
     return null;
@@ -34,7 +36,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    maxWidth: 550,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -106,6 +108,11 @@ export function TrainerCard(prop: {
                 <CardActions>
                     <Button size="small" onClick={() => setOpenModal1(true)}>Wiecej</Button>
                     <Button size="small" onClick={() => setOpenModal2(true)}>Kontakt</Button>
+                    <Tooltip title="Udostępnij">
+                        <IconButton aria-label="share">
+                            <ShareIcon/>
+                        </IconButton>
+                    </Tooltip>
                 </CardActions>
             </Card>
             <Modal
