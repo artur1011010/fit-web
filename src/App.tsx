@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {
-    createBrowserRouter,
+    createBrowserRouter, createRoutesFromElements, Route,
     RouterProvider,
 } from "react-router-dom";
 import ResponsiveAppBar from "./components/nav/ResponsiveAppBar";
@@ -15,51 +15,27 @@ import {Register} from "./components/user/account/Register";
 import {Logout} from "./components/user/account/Logout";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import RootLayout from "./RootLayout";
 
-
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Main/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "profile",
-        element: <Profile/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "trainings",
-        element: <Trainings/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "trainers",
-        element: <Trainers/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "logout",
-        element: <Logout/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "login",
-        element: <Login/>,
-        errorElement: <ErrorPage/>,
-    },
-    {
-        path: "register",
-        element: <Register/>,
-        errorElement: <ErrorPage/>,
-    },
-]);
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path="/" element={<RootLayout/>}>
+            <Route path="/" element={<Main/>}></Route>
+            <Route path="login" element={<Login/>}></Route>
+            <Route path="register" element={<Register/>}></Route>
+            <Route path="logout" element={<Logout/>}></Route>
+            <Route path="profile" element={<Profile/>}></Route>
+            <Route path="trainings" element={<Trainings/>}></Route>
+            <Route path="logout" element={<Logout/>}></Route>
+            <Route path="trainers" element={<Trainers/>}></Route>
+        </Route>
+    )
+)
 
 function App() {
     return (
         <div className="App">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <ResponsiveAppBar></ResponsiveAppBar>
                 <React.StrictMode>
                     <RouterProvider router={router}/>
                 </React.StrictMode>

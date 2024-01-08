@@ -16,6 +16,7 @@ import {Link, Paper} from "@mui/material";
 import {Fragment, useEffect} from "react";
 import {isUserLogged} from "../../config/storage";
 import SearchIcon from '@mui/icons-material/Search';
+import {Link as RouterLink, LinkProps as RouterLinkProps, NavLink} from "react-router-dom";
 
 interface Page {
     definition: string;
@@ -35,6 +36,13 @@ const settings: Page[] = [
     {definition: 'Zaloguj', site: '/login'},
     {definition: 'Zarejestruj', site: '/register'}];
 
+const getLink = (site: string) => {
+    const LinkBehavior = React.forwardRef<any, Omit<RouterLinkProps, 'to'>>(
+        (props, ref) => <RouterLink ref={ref} to={site} {...props} role={undefined} />,
+    );
+    return LinkBehavior;
+}
+
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -44,10 +52,6 @@ function ResponsiveAppBar() {
     };
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
-    };
-
-    const handleLoginButton = (event: React.MouseEvent<HTMLElement>) => {
-        console.log("handle login button")
     };
 
     const handleCloseNavMenu = () => {
@@ -73,11 +77,7 @@ function ResponsiveAppBar() {
         return (
             <Fragment>
                 <Tooltip title="Ustawienia profilu">
-                    {/*<IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>*/}
-                    {/*    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>*/}
-                    {/*</IconButton>*/}
-
-                    <IconButton
+                      <IconButton
                         size="large"
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -107,12 +107,12 @@ function ResponsiveAppBar() {
 
                     {isUserLogged() ? settingsLogged.map((setting) => (
                         <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
-                            <Link textAlign="center" href={setting.site} underline="hover"
+                            <Link textAlign="center" component={getLink(setting.site)} underline="hover"
                                   variant='body2'>{setting.definition.toUpperCase()}</Link>
                         </MenuItem>
                     )) : settings.map((setting) => (
                         <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
-                            <Link textAlign="center" href={setting.site} underline="hover"
+                            <Link textAlign="center" component={getLink(setting.site)} underline="hover"
                                   variant='body2'>{setting.definition.toUpperCase()}</Link>
                         </MenuItem>
                     ))}
@@ -147,6 +147,7 @@ function ResponsiveAppBar() {
 
                         <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                             <IconButton
+                                key="icon-menu"
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -178,13 +179,14 @@ function ResponsiveAppBar() {
                                     <Container sx={{display: 'flex', flexDirection: 'row'}}>
                                         <SearchIcon sx={{mt: 2}}></SearchIcon>
                                         <Button
-                                            href={page.site}
+                                            component={getLink(page.site)}
                                             key={page.definition}
                                             onClick={handleCloseNavMenu}
                                             sx={{my: 2, color: 'white', display: 'block'}}
                                         >
                                             {page.definition}
                                         </Button>
+                                        <NavLink to={page.site}>{page.definition}</NavLink>
                                     </Container>
                                 ))}
                             </Menu>
@@ -213,7 +215,7 @@ function ResponsiveAppBar() {
                                 <>
                                     <SearchIcon sx={{mt: 3, ml: 2}}></SearchIcon>
                                     <Button
-                                        href={page.site}
+                                        component={getLink(page.site)}
                                         key={page.definition}
                                         onClick={handleCloseNavMenu}
                                         sx={{my: 2, color: 'white', display: 'block'}}

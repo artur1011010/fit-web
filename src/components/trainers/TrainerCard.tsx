@@ -23,6 +23,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import {limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
+import {CustomRating} from "./rating/CustomRating";
 
 function MoreVertIcon() {
     return null;
@@ -46,15 +47,15 @@ export function TrainerCard(prop: {
     description: string,
     experience: number,
     email: string,
-    phoneNumber: string
+    phoneNumber: string,
+    photoNo?: number
 }) {
 
     const [modal1, setOpenModal1] = React.useState(false);
     const [modal2, setOpenModal2] = React.useState(false);
 
-    const getRandomImage = () => {
-        const imgNo = Math.floor(Math.random() * (5 - 1 + 1) + 1)
-        switch (imgNo) {
+    const getImage = (photo?: number) => {
+        switch (photo) {
             case 1:
                 return imageUrl1;
             case 2:
@@ -88,7 +89,7 @@ export function TrainerCard(prop: {
                 />
                 <CardMedia
                     sx={{height: 140}}
-                    image={getRandomImage()}
+                    image={getImage(prop.photoNo)}
                     title={prop.userName}
                 />
                 <CardContent>
@@ -98,6 +99,9 @@ export function TrainerCard(prop: {
                     <Typography variant="body2" color="text.secondary">
                         {limitText(prop.description, 150)}
                     </Typography>
+                    <Grid sx={{mt: 1}}>
+                        <CustomRating></CustomRating>
+                    </Grid>
                 </CardContent>
                 <CardActions>
                     <Button size="small" onClick={() => setOpenModal1(true)}>Wiecej</Button>

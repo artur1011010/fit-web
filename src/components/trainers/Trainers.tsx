@@ -34,6 +34,7 @@ export function Trainers() {
                                                                       description={elem.description}
                                                                       phoneNumber={elem.phoneNumber}
                                                                       email={elem.email}
+                                                                      photoNo={elem.photoNo}
             ></TrainerCard>))
         }
         return result;

@@ -121,7 +121,11 @@ export function TrainingListItem(prop: {
                             {prop.description}
                         </Typography>
                         <p><AlternateEmailIcon></AlternateEmailIcon> {prop.ownerEmail}</p>
-                        <Divider></Divider>
+                        <Divider sx={{my: 1}}></Divider>
+                        <Typography>Zapisani uczestnicy:</Typography>
+                        <Typography variant="body2"
+                                    style={getSecondaryStyle()}>{isBlank(prop.clientEmail) ? 'brak' : prop.clientEmail}</Typography>
+                        <Divider sx={{my: 1}}></Divider>
                         <Container disableGutters sx={{
                             display: 'flex',
                             flexDirection: 'row',

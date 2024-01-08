@@ -1,4 +1,4 @@
-import {Button, Container} from "@mui/material";
+import {Button, Container, Divider} from "@mui/material";
 import React from "react";
 import {Gender} from "../../dto/Gender";
 import {loginUser, registerUser} from "../../services/AuthService";
@@ -11,10 +11,9 @@ import {FitnessLevel} from "../../dto/FitnessLevel";
 import {postClientDto} from "../../services/UserService";
 import backgroundImg from "./main-background.jpg";
 
-
 const mainClass = {
     height: 'calc(100vh - 69px)',
-    backgroundImage:  `url(${backgroundImg})`
+    backgroundImage: `url(${backgroundImg})`
 }
 
 export function Main() {
@@ -51,7 +50,7 @@ export function Main() {
             });
     }
 
-    const addTrainings = () =>{
+    const addTrainings = () => {
         fetch('http://localhost:8083/offer/add', {
             method: 'POST'
         });
@@ -77,12 +76,17 @@ export function Main() {
 
     return (
         <div style={mainClass}>
-            <Container sx={{display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", py: 4}}>
-                <Button variant="contained" onClick={() => registerUser2()} sx={{my: 2, width: '200px'}}>Rejestracja usera</Button>
+            <Container
+                sx={{display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center", py: 4}}>
+                <Button variant="contained" onClick={() => registerUser2()} sx={{my: 2, width: '200px'}}>Rejestracja
+                    usera</Button>
                 <Button variant="contained" onClick={() => loginUser2()} sx={{my: 2, width: '200px'}}>Logowanie</Button>
-                <Button variant="contained" onClick={() => addClientProfile()} sx={{my: 2, width: '200px'}}>Dodanie profilu klienta</Button>
-                <Button variant="contained" onClick={() => add5Trainers()} sx={{my: 2, width: '200px'}}>dodanie 5 trenerów</Button>
-                <Button variant="contained" onClick={() => addTrainings()} sx={{my: 2, width: '200px'}}>dodanie treningów</Button>
+                <Button variant="contained" onClick={() => addClientProfile()} sx={{my: 2, width: '200px'}}>Dodanie
+                    profilu klienta</Button>
+                <Button variant="contained" onClick={() => add5Trainers()} sx={{my: 2, width: '200px'}}>dodanie 5
+                    trenerów</Button>
+                <Button variant="contained" onClick={() => addTrainings()} sx={{my: 2, width: '200px'}}>dodanie
+                    treningów</Button>
             </Container>
         </div>
     )
