@@ -13,6 +13,7 @@ export function MyTrainingList() {
     const [trainingList, setTrainingList] = useState(null);
 
     const url = 'http://localhost:8083/offer/client';
+    const resignUrl = 'http://localhost:8083/offer/resign';
     const getMyTrainingsList = () => {
         const auth = storeAuth(ACTIONS.GET, null);
         return fetch(url, {
@@ -29,15 +30,14 @@ export function MyTrainingList() {
     }, []);
 
     const resignTraining = (id: number) => {
-        console.log(`featching:\n${url}?trainingId=${id}`)
+        console.log(`featching:\n${resignUrl}?trainingId=${id}`)
         const auth = storeAuth(ACTIONS.GET, null);
-        return fetch(`${url}?trainingId=${id}`, {
+        return fetch(`${resignUrl}?trainingId=${id}`, {
             headers: {Authorization: `Bearer ${auth.access_token}`},
-            method: 'DELETE'
+            method: 'PATCH'
         })
-            .then((res) => res.json())
-            .then((d) => {
-                setTrainingList(d)
+            .then(() => {
+                getMyTrainingsList()
             });
     }
 

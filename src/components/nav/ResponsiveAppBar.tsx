@@ -186,7 +186,6 @@ function ResponsiveAppBar() {
                                         >
                                             {page.definition}
                                         </Button>
-                                        <NavLink to={page.site}>{page.definition}</NavLink>
                                     </Container>
                                 ))}
                             </Menu>

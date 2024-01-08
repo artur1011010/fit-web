@@ -50,13 +50,6 @@ export function MyTrainingListItem(prop: {
     const [modal1, setOpenModal1] = React.useState(false);
 
 
-    const getSecondaryStyle = () => {
-        if (isBlank(prop.clientEmail)) {
-            return {color: 'yellow'}
-        }
-        return {color: 'green'}
-    }
-
     return (
         <>
             <ListItem
@@ -77,8 +70,7 @@ export function MyTrainingListItem(prop: {
                 </ListItemAvatar>
                 <ListItemText
                     primary={`${limitText(prop.title, 30)},  ${prop.address},  ${editDate(prop.startTime)}`}
-                    secondary={<Typography variant="body2"
-                                           style={getSecondaryStyle()}>Uczestnik: {isBlank(prop.clientEmail) ? 'brak' : prop.clientEmail}</Typography>}
+                    secondary={<Typography variant="body1">Prowadzący: {isBlank(prop.ownerEmail) ? 'brak' : prop.ownerEmail}</Typography>}
                 />
             </ListItem>
             <Divider></Divider>
