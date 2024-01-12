@@ -28,7 +28,7 @@ const router = createBrowserRouter(
             <Route path="trainings" element={<Trainings/>}></Route>
             <Route path="logout" element={<Logout/>}></Route>
             <Route path="trainers" element={<Trainers/>}></Route>
-            <Route path="trainer" element={<TrainerDetails/>}>
+            <Route path="trainers/trainer" element={<TrainerDetails/>}>
                 <Route
                 path=":id"
                 element={<TrainerDetails/>}

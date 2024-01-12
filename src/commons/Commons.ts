@@ -46,6 +46,16 @@ export const editDate = (input: string): string => {
     return `${year}-${addLeadingZero(month)}-${addLeadingZero(day)} godz: ${addLeadingZero(hour)}:${addLeadingZero(minute)}:${addLeadingZero(second)}`;
 }
 
+export const editDate2 = (date: Date): string => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
+    return `${year}-${addLeadingZero(month)}-${addLeadingZero(day)} godz: ${addLeadingZero(hour)}:${addLeadingZero(minute)}:${addLeadingZero(second)}`;
+}
+
 function addLeadingZero(num: number): any {
     // Sprawdzamy, czy liczba jest jednocyfrowa.
     if (num < 10) {
@@ -56,3 +66,10 @@ function addLeadingZero(num: number): any {
         return num;
     }
 }
+
+const getValueOrThrowException = (value?: any) =>{
+    if(value === undefined || value === null){
+        // throw DOMException("could not fetch ");
+    }
+}
+

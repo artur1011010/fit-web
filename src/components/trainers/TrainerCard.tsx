@@ -26,10 +26,8 @@ import {limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
 import {CustomRating} from "./rating/CustomRating";
 import Tooltip from "@mui/material/Tooltip";
+import {Link as RouterLink, LinkProps as RouterLinkProps} from "react-router-dom";
 
-function MoreVertIcon() {
-    return null;
-}
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -44,6 +42,7 @@ const style = {
 };
 
 export function TrainerCard(prop: {
+    trainerId: number,
     userName: string,
     specializations: string,
     description: string,
@@ -51,6 +50,7 @@ export function TrainerCard(prop: {
     email: string,
     phoneNumber: string,
     photoNo?: number
+    rating: number;
 }) {
 
     const [modal1, setOpenModal1] = React.useState(false);
@@ -73,19 +73,23 @@ export function TrainerCard(prop: {
         }
     }
 
+    const getLink = (id: number) => {
+        const SITE = `trainer/${id}`
+        const LinkBehavior = React.forwardRef<any, Omit<RouterLinkProps, 'to'>>(
+            (props, ref) => <RouterLink style={{ textDecoration: 'none', color: 'white' }} ref={ref} to={SITE} {...props} role={undefined} />,
+        );
+        return LinkBehavior;
+    }
+
     return (
         <Grid item xs={12} sm={6} md={3}>
             <Card sx={{maxWidth: 345}}>
                 <CardHeader
+                    component={getLink(prop.trainerId)}
                     avatar={
                         <Avatar sx={{bgcolor: blue[500]}} aria-label="recipe">
                             {prop.userName.substring(0, 1)}
                         </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon/>
-                        </IconButton>
                     }
                     title={prop.userName}
                 />
@@ -102,7 +106,7 @@ export function TrainerCard(prop: {
                         {limitText(prop.description, 150)}
                     </Typography>
                     <Grid sx={{mt: 1}}>
-                        <CustomRating></CustomRating>
+                        <CustomRating rating={prop.rating}></CustomRating>
                     </Grid>
                 </CardContent>
                 <CardActions>

@@ -58,7 +58,7 @@ export function TrainingCard(prop: {
     ownerEmail: string,
     startTime: string,
     duration: number,
-    photo: number,
+    photoNo: number,
 }) {
     const [modal1, setOpenModal1] = React.useState(false);
 
@@ -132,7 +132,7 @@ export function TrainingCard(prop: {
                 />
                 <CardMedia
                     sx={{height: 140}}
-                    image={getImage(prop.photo)}
+                    image={getImage(prop.photoNo)}
                     title={prop.title}
                 />
                 <CardContent>

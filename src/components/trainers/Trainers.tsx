@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import {TrainerCard} from "./TrainerCard";
 import Grid from "@mui/material/Grid";
 import {isBlank} from "../../commons/Commons";
-import ScrollToTopFab from "../main/ScrollToTopFab";
 
 export function Trainers() {
 
@@ -29,12 +28,15 @@ export function Trainers() {
         let result: React.JSX.Element[] = [];
         if (Array.isArray(trainersTempList)) {
             // @ts-ignore
-            trainersTempList.forEach(elem => result.push(<TrainerCard key={elem.userName} userName={elem.userName}
-                                                                      specializations={elem.specializations}
-                                                                      description={elem.description}
-                                                                      phoneNumber={elem.phoneNumber}
-                                                                      email={elem.email}
-                                                                      photoNo={elem.photoNo}
+            trainersTempList.forEach(elem => result.push(<TrainerCard
+                trainerId={elem.id}
+                key={elem.userName} userName={elem.userName}
+                specializations={elem.specializations}
+                description={elem.description}
+                phoneNumber={elem.phoneNumber}
+                email={elem.email}
+                photoNo={elem.photoNo}
+                rating={elem.rating}
             ></TrainerCard>))
         }
         return result;
@@ -66,17 +68,16 @@ export function Trainers() {
     }
 
     return (
-            <Container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField sx={{width: '100%', my: 4}}
-                                   label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
-                                   onChange={handleSearch}></TextField>
+        <Container sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <TextField sx={{width: '100%', my: 4}}
+                               label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
+                               onChange={handleSearch}></TextField>
 
-                    </Grid>
-                    {renderList()}
                 </Grid>
-                <ScrollToTopFab></ScrollToTopFab>
-            </Container>
+                {renderList()}
+            </Grid>
+        </Container>
     )
 }

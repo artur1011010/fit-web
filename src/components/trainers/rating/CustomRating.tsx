@@ -2,23 +2,17 @@ import React from "react";
 import {Rating} from "@mui/material";
 
 export function CustomRating(prop: {
-    rating?: number,
-    userVoted?: boolean,
-    setFunction?: Function
+    rating: number,
 }) {
 
-    const [value, setValue] = React.useState<number | null>(2.49);
-
+    console.log("rating :" + prop.rating)
     return (
         <>
             <Rating
                 name="simple-controlled"
                 precision={0.5}
-                value={value}
+                value={prop.rating}
                 readOnly
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
             />
         </>
     );

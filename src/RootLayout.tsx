@@ -2,6 +2,7 @@ import * as React from "react";
 import ResponsiveAppBar from "./components/nav/ResponsiveAppBar";
 import {Outlet} from "react-router-dom";
 import backgroundImg from "./components/main/main-background.jpg";
+import ScrollToTopFab from "./components/main/ScrollToTopFab";
 
 const mainClass = {
     height: '100%',
@@ -19,6 +20,7 @@ export default function RootLayout() {
             </header>
             <main>
                 <Outlet/>
+                <ScrollToTopFab/>
             </main>
         </div>
     );

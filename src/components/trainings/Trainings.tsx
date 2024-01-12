@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import {isBlank} from "../../commons/Commons";
 import Grid from "@mui/material/Grid";
 import {TrainingCard} from "./TrainingCard";
-import ScrollToTopFab from "../main/ScrollToTopFab";
 
 export function Trainings() {
     const [trainersList, setTrainersList] = useState(null);
@@ -30,13 +29,14 @@ export function Trainings() {
             // @ts-ignore
             trainersTempList.forEach(elem => result.push(<TrainingCard key={elem.id}
                                                                        id={elem.id}
-                                                                       photo={elem.photo}
                                                                        title={elem.title}
                                                                        description={elem.description}
                                                                        address={elem.address}
                                                                        ownerEmail={elem.ownerEmail}
                                                                        startTime={elem.startTime}
                                                                        duration={elem.duration}
+                                                                       photoNo={elem.photoNo}
+
             ></TrainingCard>))
         }
         return result;
@@ -83,7 +83,6 @@ export function Trainings() {
                 </Grid>
                 {renderList()}
             </Grid>
-            <ScrollToTopFab></ScrollToTopFab>
         </Container>
     )
 }

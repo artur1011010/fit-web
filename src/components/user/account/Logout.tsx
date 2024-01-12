@@ -1,4 +1,4 @@
-import {Link} from "@mui/material";
+import {Container, Link} from "@mui/material";
 import React from "react";
 import {ACTIONS, storeAuth} from "../../../config/storage";
 
@@ -10,11 +10,11 @@ export function Logout() {
     logout();
 
     return (
-        <div>
+        <Container sx={{width: '90%', mb:2}}>
             <p>zostałeś prawidłowo wylogowany</p>
             <Link href="/" underline="hover">
                 {'wróć do strony głównej'}
             </Link>
-        </div>
+        </Container>
     )
 }
