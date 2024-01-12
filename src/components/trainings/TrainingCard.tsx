@@ -63,7 +63,7 @@ export function TrainingCard(prop: {
     const [modal1, setOpenModal1] = React.useState(false);
 
     const handleSignup = () => {
-        console.log("zapisz sie: " + prop.id)
+        // console.log("zapisz sie: " + prop.id)
         signupOnTraining(prop.id)
     }
 

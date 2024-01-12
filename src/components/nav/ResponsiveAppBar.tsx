@@ -62,17 +62,6 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    const handleEvent = () => {
-        console.log("updateing state")
-    }
-
-    useEffect(() => {
-        window.addEventListener("auth_update", handleEvent);
-        return () => {
-            window.removeEventListener("auth_update", handleEvent);
-        };
-    }, []);
-
     const getAvatarIconWhenLogged = () => {
         return (
             <Fragment>
@@ -107,12 +96,12 @@ function ResponsiveAppBar() {
 
                     {isUserLogged() ? settingsLogged.map((setting) => (
                         <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
-                            <Link textAlign="center" component={getLink(setting.site)} underline="hover"
+                            <Link key={setting.definition} textAlign="center" component={getLink(setting.site)} underline="hover"
                                   variant='body2'>{setting.definition.toUpperCase()}</Link>
                         </MenuItem>
                     )) : settings.map((setting) => (
                         <MenuItem key={setting.definition} onClick={handleCloseUserMenu}>
-                            <Link textAlign="center" component={getLink(setting.site)} underline="hover"
+                            <Link key={setting.definition} textAlign="center" component={getLink(setting.site)} underline="hover"
                                   variant='body2'>{setting.definition.toUpperCase()}</Link>
                         </MenuItem>
                     ))}
@@ -176,8 +165,8 @@ function ResponsiveAppBar() {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <Container sx={{display: 'flex', flexDirection: 'row'}}>
-                                        <SearchIcon sx={{mt: 2}}></SearchIcon>
+                                    <Container key={page.definition} sx={{display: 'flex', flexDirection: 'row'}}>
+                                        <SearchIcon key={page.definition} sx={{mt: 2}}></SearchIcon>
                                         <Button
                                             component={getLink(page.site)}
                                             key={page.definition}
@@ -211,8 +200,8 @@ function ResponsiveAppBar() {
                         </Typography>
                         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                             {pages.map((page) => (
-                                <>
-                                    <SearchIcon sx={{mt: 3, ml: 2}}></SearchIcon>
+                                <Fragment key={page.definition}>
+                                    <SearchIcon key={page.definition} sx={{mt: 3, ml: 2}}></SearchIcon>
                                     <Button
                                         component={getLink(page.site)}
                                         key={page.definition}
@@ -221,7 +210,7 @@ function ResponsiveAppBar() {
                                     >
                                         {page.definition}
                                     </Button>
-                                </>
+                                </Fragment>
                             ))}
                         </Box>
 

@@ -31,7 +31,7 @@ export function Main() {
                     isLogged: true,
                 }
                 storeAuth(ACTIONS.SAVE, auth);
-                console.log(res);
+                //console.log(res);
             });
     }
 
@@ -46,7 +46,7 @@ export function Main() {
         };
         registerUser(req)
             .then(res => {
-                console.log(res);
+                //console.log(res);
             });
     }
 
@@ -64,7 +64,7 @@ export function Main() {
         };
         postClientDto(req)
             .then(res => {
-                console.log(res);
+                //console.log(res);
             });
     }
 

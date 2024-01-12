@@ -5,7 +5,6 @@ export function CustomRating(prop: {
     rating: number,
 }) {
 
-    console.log("rating :" + prop.rating)
     return (
         <>
             <Rating

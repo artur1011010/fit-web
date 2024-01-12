@@ -44,7 +44,6 @@ export function Trainers() {
 
     const handleSearch = (event: any) => {
         let va1ue = event.target.value;
-        console.log('search: ' + va1ue)
         search(va1ue)
     }
 
@@ -74,7 +73,6 @@ export function Trainers() {
                     <TextField sx={{width: '100%', my: 4}}
                                label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
                                onChange={handleSearch}></TextField>
-
                 </Grid>
                 {renderList()}
             </Grid>

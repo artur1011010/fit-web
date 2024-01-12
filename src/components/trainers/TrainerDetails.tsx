@@ -1,12 +1,11 @@
 import * as React from "react";
 import {useParams} from "react-router-dom";
 import {
-    Button,
     Card,
     CardContent,
     CardHeader,
     Container,
-    Divider, Rating, TextField,
+    Divider,
     Typography
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -15,21 +14,21 @@ import img from "./images/trainer4.png"
 import Grid from "@mui/material/Grid";
 import {CustomRating} from "./rating/CustomRating";
 import {useEffect, useState} from "react";
-import {STRING_EMPTY} from "../../commons/StaticText";
 import OpinionListItem from "./OpinionListItem";
 import {TrainerDetailsType} from "../../dto/TrainerDetails";
+import {RatingForm} from "./RatingForm";
+import {OpinionDto} from "../../dto/OpinionDto";
+import {ACTIONS, isUserLogged, storeAuth} from "../../config/storage";
 
 export default function TrainerDetails() {
     const {id} = useParams();
-    const [value, setValue] = React.useState<number | null>(0);
-    const [opinion, setOpinion] = useState(STRING_EMPTY);
     const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsType | null>(null);
 
-
-    const url = `http://localhost:8081/trainer/details/${id}`;
+    const GET_URL = `http://localhost:8081/trainer/details/${id}`
+    const POST_OPINION_URL = `http://localhost:8081/opinion/${id}`
 
     const getTrainerDetails = () => {
-        return fetch(url)
+        return fetch(GET_URL)
             .then((res) => res.json())
             .then((response) => {
                 setTrainerDetails(response)
@@ -40,12 +39,25 @@ export default function TrainerDetails() {
         getTrainerDetails();
     }, []);
 
-    const handleChangeOpinion = (event: any) => {
-        setOpinion(event.target.value)
+    const dispatchOpinion = (opinionDto: OpinionDto) => {
+        console.log("wysłanie opini: " + opinionDto);
+        postOpinion(opinionDto)
     }
 
-    const dispatchOpinion = () => {
-        console.log("wysłanie opini");
+    const postOpinion = (opinionDto: OpinionDto) => {
+        const auth = storeAuth(ACTIONS.GET, null);
+        fetch(POST_OPINION_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${auth.access_token}`
+            },
+            body: JSON.stringify(opinionDto),
+        }).then(()=>{
+            getTrainerDetails();
+        }).catch(()=>{
+            console.log("dispatch error message")
+        })
     }
 
     const genOpinions = () => {
@@ -54,6 +66,7 @@ export default function TrainerDetails() {
             for (let i = 0; i < trainerDetails?.opinions.length; i++) {
                 const opinion = trainerDetails.opinions[i];
                 elem.push(<OpinionListItem
+                    key={opinion.userName}
                     userName={opinion.userName || 'Nieznany użytkownik'}
                     rating={opinion.rating}
                     addedDate={opinion.addedDate ? new Date(opinion.addedDate) : new Date()}
@@ -104,23 +117,7 @@ export default function TrainerDetails() {
                         <Typography align='left' variant='h5' sx={{my: 2}} color="text.secondary">
                             Opinie
                         </Typography>
-                        <Rating
-                            name="simple-controlled"
-                            precision={0.5}
-                            value={value}
-                            onChange={(event, newValue) => {
-                                setValue(newValue);
-                            }}
-                        />
-                        <TextField multiline rows={4} InputLabelProps={{shrink: true}}
-                                   sx={{width: '100%'}}
-                                   value={opinion}
-                                   id='field' type='text' margin="none"
-                                   onChange={handleChangeOpinion}
-                                   inputProps={{maxLength: 8000}}
-                        ></TextField>
-                        <Button onClick={() => dispatchOpinion()} variant="contained" sx={{mt: 1}}>Wyślij
-                            opinie</Button>
+                        {isUserLogged() ? <RatingForm handleOpinionFunc={dispatchOpinion}></RatingForm> : null}
                     </CardContent>
                     {genOpinions()}
                 </Card>

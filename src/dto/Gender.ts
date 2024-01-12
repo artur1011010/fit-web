@@ -5,7 +5,6 @@ export enum Gender {
 }
 
 export const fromString = (input: string): Gender => {
-    console.log("input: " + input)
     switch (input) {
         case "M":
             return Gender.M;
