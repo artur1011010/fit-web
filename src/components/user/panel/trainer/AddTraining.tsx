@@ -49,7 +49,7 @@ export function AddTraining() {
 
     const addTrainingRequest = async (request: OfferDto) => {
         const auth = storeAuth(ACTIONS.GET, null);
-        const response = await fetch('http://localhost:8083/offer', {
+        const response = await fetch(`${process.env.REACT_APP_OFFER_URL}/offer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

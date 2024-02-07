@@ -20,6 +20,8 @@ import {TrainerDto} from "../../../../dto/TrainerDto";
 import CustomNumberField from "../../CustomNumberField";
 import {AddTraining} from "./AddTraining";
 import {TrainingList} from "./TrainingList";
+import UploadForm from "./UploadForm";
+import ProfilePhoto from "./ProfilePhoto";
 
 
 const PersonalDataList = styled('div')(({theme}) => ({
@@ -31,7 +33,7 @@ export default function TrainerDataProfileView() {
 
     const [trainerData, setTrainerData] = useState(null);
     const [switcherActive, setSwitcherActive] = useState(false);
-    const url = 'http://localhost:8081/user/trainer';
+    const url = `${process.env.REACT_APP_USER_URL}/user/trainer`;
 
     const getTrainerData = () => {
         const auth = storeAuth(ACTIONS.GET, null);
@@ -121,6 +123,17 @@ export default function TrainerDataProfileView() {
         return STRING_EMPTY;
     }
 
+    const getEmail = (): string => {
+        if (trainerData !== null && trainerData !== undefined) {
+            // @ts-ignore
+            if (trainerData.email !== null) {
+                // @ts-ignore
+                return trainerData.email;
+            }
+        }
+        return STRING_EMPTY;
+    }
+
     const getSpecializations = (): string => {
         if (trainerData !== null && trainerData !== undefined) {
             // @ts-ignore
@@ -161,10 +174,9 @@ export default function TrainerDataProfileView() {
 
     const getActiveTrainerPanel = () => {
         return (
-                <AddTraining></AddTraining>
+            <AddTraining></AddTraining>
         )
     }
-
 
 
     const getMyTrainingsList = () => {
@@ -182,7 +194,7 @@ export default function TrainerDataProfileView() {
 
     return (
         <>
-            <Box sx={{flexGrow: 1,border: 'solid black 2px', borderRadius: '3px', padding: '20px'}}>
+            <Box sx={{flexGrow: 1, border: 'solid black 2px', borderRadius: '3px', padding: '20px'}}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <ListItem>
@@ -208,6 +220,14 @@ export default function TrainerDataProfileView() {
                                 <ListItem>
                                     <CustomTextField label='Specjalizacje' value={getSpecializations()}
                                                      handleChange={handleSpecChange} editable={true}></CustomTextField>
+                                </ListItem>
+                                <ListItem>
+                                    <Box sx={{maxWidth: '100%'}}>
+                                        <ProfilePhoto email={getEmail()}></ProfilePhoto>
+                                    </Box>
+                                </ListItem>
+                                <ListItem>
+                                    <UploadForm></UploadForm>
                                 </ListItem>
                             </List>
                         </PersonalDataList>

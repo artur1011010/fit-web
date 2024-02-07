@@ -41,7 +41,7 @@ const router = createBrowserRouter(
 
 function App() {
     return (
-        <div className="App">
+        <div className="Application">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <React.StrictMode>
                     <RouterProvider router={router}/>

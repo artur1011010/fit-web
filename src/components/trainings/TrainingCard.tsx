@@ -27,7 +27,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PlaceIcon from '@mui/icons-material/Place';
 import {editDate, limitText} from "../../commons/Commons";
 import Box from "@mui/material/Box";
-import {ACTIONS, storeAuth} from "../../config/storage";
+import {ACTIONS, isUserLogged, storeAuth} from "../../config/storage";
 
 
 const style = {
@@ -67,7 +67,7 @@ export function TrainingCard(prop: {
         signupOnTraining(prop.id)
     }
 
-    const url = 'http://localhost:8083/offer/signup';
+    const url = `${process.env.REACT_APP_OFFER_URL}/offer/signup`;
 
     const signupOnTraining = (id: number) => {
         console.log(`featching:\n${url}?trainingId=${id}`)
@@ -194,7 +194,8 @@ export function TrainingCard(prop: {
                             mb: 1
                         }}>
                             <Button size="small" onClick={() => setOpenModal1(false)} sx={{mt: 2}}>zamknij</Button>
-                            <Button size="small" onClick={handleSignup} sx={{mt: 2}}>Zapisz się</Button>
+                            {isUserLogged() ?
+                                <Button size="small" onClick={handleSignup} sx={{mt: 2}}>Zapisz się</Button> : null}
                         </Container>
                     </Typography>
                 </Box>

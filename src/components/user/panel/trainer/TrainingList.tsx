@@ -12,7 +12,7 @@ export function TrainingList() {
 
     const [trainingList, setTrainingList] = useState(null);
 
-    const url = 'http://localhost:8083/offer';
+    const url = `${process.env.REACT_APP_OFFER_URL}/offer`;
     const getMyTrainingsList = () => {
         const auth = storeAuth(ACTIONS.GET, null);
         return fetch(url, {

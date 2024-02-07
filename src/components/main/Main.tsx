@@ -51,7 +51,7 @@ export function Main() {
     }
 
     const addTrainings = () => {
-        fetch('http://localhost:8083/offer/add', {
+        fetch(`${process.env.REACT_APP_OFFER_URL}/offer/add`, {
             method: 'POST'
         });
     }
@@ -69,7 +69,7 @@ export function Main() {
     }
 
     const add5Trainers = () => {
-        fetch('http://localhost:8081/trainer/add5', {
+        fetch(`${process.env.REACT_APP_USER_URL}/trainer/test/add`, {
             method: 'POST'
         });
     }

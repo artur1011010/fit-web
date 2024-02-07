@@ -19,13 +19,14 @@ import {TrainerDetailsType} from "../../dto/TrainerDetails";
 import {RatingForm} from "./RatingForm";
 import {OpinionDto} from "../../dto/OpinionDto";
 import {ACTIONS, isUserLogged, storeAuth} from "../../config/storage";
+import ProfilePhoto from "../user/panel/trainer/ProfilePhoto";
 
 export default function TrainerDetails() {
     const {id} = useParams();
     const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsType | null>(null);
 
-    const GET_URL = `http://localhost:8081/trainer/details/${id}`
-    const POST_OPINION_URL = `http://localhost:8081/opinion/${id}`
+    const GET_URL = `${process.env.REACT_APP_USER_URL}/trainer/details/${id}`
+    const POST_OPINION_URL = `${process.env.REACT_APP_USER_URL}/opinion/${id}`
 
     const getTrainerDetails = () => {
         return fetch(GET_URL)
@@ -66,7 +67,7 @@ export default function TrainerDetails() {
             for (let i = 0; i < trainerDetails?.opinions.length; i++) {
                 const opinion = trainerDetails.opinions[i];
                 elem.push(<OpinionListItem
-                    key={opinion.userName}
+                    key={`${opinion.userName} + ${opinion.addedDate}`}
                     userName={opinion.userName || 'Nieznany użytkownik'}
                     rating={opinion.rating}
                     addedDate={opinion.addedDate ? new Date(opinion.addedDate) : new Date()}
@@ -114,6 +115,7 @@ export default function TrainerDetails() {
                         <Typography align='left' sx={{fontSize: 15}} color="text.secondary">
                             {trainerDetails?.specializations}
                         </Typography>
+                        <ProfilePhoto email={trainerDetails?.email}></ProfilePhoto>
                         <Typography align='left' variant='h5' sx={{my: 2}} color="text.secondary">
                             Opinie
                         </Typography>

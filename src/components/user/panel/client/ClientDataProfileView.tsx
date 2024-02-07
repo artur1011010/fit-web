@@ -24,7 +24,7 @@ const PersonalDataList = styled('div')(({theme}) => ({
 
 export default function ClientDataProfileView() {
     const [clientData, setClientData] = useState(null);
-    const url = 'http://localhost:8081/user/client';
+    const url = `${process.env.REACT_APP_USER_URL}/user/client`;
 
     const getUserData = () => {
         const auth = storeAuth(ACTIONS.GET, null);

@@ -1,19 +1,40 @@
-import {Container, TextField} from "@mui/material";
+import {Container, Skeleton, Stack, TextField} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {isBlank} from "../../commons/Commons";
 import Grid from "@mui/material/Grid";
 import {TrainingCard} from "./TrainingCard";
+import Box from "@mui/material/Box";
+
+function getTrainingSkeleton(): React.JSX.Element {
+    return (
+        <Stack spacing={1} sx={{m: 3}}>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Skeleton variant="circular" width={45} height={45} sx={{mt: 3, ml:1}}/>
+                <Stack spacing={2} sx={{ml: 3}}>
+                    <Skeleton variant="text" width={245} sx={{fontSize: '1rem'}}/>
+                    <Skeleton variant="text" width={245} sx={{fontSize: '1rem'}}/>
+                    <Skeleton variant="text" width={245} sx={{fontSize: '1rem'}}/>
+                </Stack>
+            </Box>
+            <Skeleton variant="rectangular" width={340} height={120}/>
+            <Skeleton variant="rounded" width={340} height={170}/>
+        </Stack>
+    );
+}
+
 
 export function Trainings() {
     const [trainersList, setTrainersList] = useState(null);
     const [trainersTempList, setTrainersTempList] = useState(null);
+    const [renderSkeleton, setRenderSkeleton] = useState(true);
 
-    const url = 'http://localhost:8083/offer/all?active=true&current=true';
+    const url = `${process.env.REACT_APP_OFFER_URL}/offer/all?active=true&current=true`;
 
     const getTrainersList = () => {
         return fetch(url)
             .then((res) => res.json())
             .then((d) => {
+                setRenderSkeleton(false)
                 setTrainersList(d)
                 setTrainersTempList(d)
             });
@@ -22,6 +43,14 @@ export function Trainings() {
     useEffect(() => {
         getTrainersList();
     }, []);
+
+    const renderSkeletonList = () => {
+        let result: React.JSX.Element[] = [];
+        for (let i = 0; i < 8; i++) {
+            result.push(getTrainingSkeleton())
+        }
+        return result;
+    }
 
     const renderList = () => {
         let result: React.JSX.Element[] = [];
@@ -35,7 +64,7 @@ export function Trainings() {
                                                                        ownerEmail={elem.ownerEmail}
                                                                        startTime={elem.startTime}
                                                                        duration={elem.duration}
-                                                                       photoNo={elem.photoNo}
+                                                                       photoNo={elem.photo}
 
             ></TrainingCard>))
         }
@@ -81,7 +110,7 @@ export function Trainings() {
                                onChange={handleSearch}></TextField>
 
                 </Grid>
-                {renderList()}
+                {renderSkeleton ? renderSkeletonList() : renderList()}
             </Grid>
         </Container>
     )

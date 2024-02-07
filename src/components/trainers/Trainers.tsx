@@ -1,20 +1,38 @@
-import {Container, TextField} from "@mui/material";
+import {Container, Skeleton, TextField, Stack} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import {TrainerCard} from "./TrainerCard";
 import Grid from "@mui/material/Grid";
 import {isBlank} from "../../commons/Commons";
+import Box from "@mui/material/Box";
+
+function getTrainerSkeleton(): React.JSX.Element {
+    return (
+        <Stack spacing={2} sx={{m: 1}}>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Skeleton variant="circular" width={45} height={45} sx={{mt: 1, ml:1}}/>
+                <Stack spacing={2} sx={{ml: 3}}>
+                    <Skeleton variant="text" width={180} sx={{fontSize: '1rem', mt: 2}}/>
+                </Stack>
+            </Box>
+            <Skeleton variant="rectangular" width={270} height={130}/>
+            <Skeleton variant="rounded" width={270} height={250}/>
+        </Stack>
+    );
+}
 
 export function Trainers() {
 
     const [trainersList, setTrainersList] = useState(null);
     const [trainersTempList, setTrainersTempList] = useState(null);
+    const [renderSkeleton, setRenderSkeleton] = useState(true);
 
-    const url = 'http://localhost:8081/trainer?active=true';
+    const url = `${process.env.REACT_APP_USER_URL}/trainer?active=true`;
 
     const getTrainersList = () => {
         return fetch(url)
             .then((res) => res.json())
             .then((d) => {
+                setRenderSkeleton(false)
                 setTrainersList(d)
                 setTrainersTempList(d)
             });
@@ -29,8 +47,9 @@ export function Trainers() {
         if (Array.isArray(trainersTempList)) {
             // @ts-ignore
             trainersTempList.forEach(elem => result.push(<TrainerCard
+                key={elem.id}
                 trainerId={elem.id}
-                key={elem.userName} userName={elem.userName}
+                userName={elem.userName}
                 specializations={elem.specializations}
                 description={elem.description}
                 phoneNumber={elem.phoneNumber}
@@ -38,6 +57,14 @@ export function Trainers() {
                 photoNo={elem.photoNo}
                 rating={elem.rating}
             ></TrainerCard>))
+        }
+        return result;
+    }
+
+    const renderSkeletonList = () => {
+        let result: React.JSX.Element[] = [];
+        for (let i = 0; i < 8; i++) {
+            result.push(getTrainerSkeleton())
         }
         return result;
     }
@@ -74,7 +101,7 @@ export function Trainers() {
                                label='Wyszukaj trenera' id='user-name-field' type='text' margin="normal"
                                onChange={handleSearch}></TextField>
                 </Grid>
-                {renderList()}
+                {renderSkeleton ? renderSkeletonList() : renderList()}
             </Grid>
         </Container>
     )

@@ -12,8 +12,8 @@ export function MyTrainingList() {
 
     const [trainingList, setTrainingList] = useState(null);
 
-    const url = 'http://localhost:8083/offer/client';
-    const resignUrl = 'http://localhost:8083/offer/resign';
+    const url = `${process.env.REACT_APP_OFFER_URL}/offer/client`;
+    const resignUrl = `${process.env.REACT_APP_OFFER_URL}/offer/resign`;
     const getMyTrainingsList = () => {
         const auth = storeAuth(ACTIONS.GET, null);
         return fetch(url, {

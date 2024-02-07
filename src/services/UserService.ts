@@ -4,7 +4,7 @@ import {TrainerDto} from "../dto/TrainerDto";
 
 export const postClientDto = async (request: ClientDto) => {
     const auth = storeAuth(ACTIONS.GET, null);
-    const response = await fetch('http://localhost:8081/user/client', {
+    const response = await fetch(`${process.env.REACT_APP_USER_URL}/user/client`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${auth.access_token}`,
@@ -21,7 +21,7 @@ export const postClientDto = async (request: ClientDto) => {
 
 export const postTrainerDto = async (request: TrainerDto) => {
     const auth = storeAuth(ACTIONS.GET, null);
-    const response = await fetch('http://localhost:8081/user/trainer', {
+    const response = await fetch(`${process.env.REACT_APP_USER_URL}/user/trainer`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${auth.access_token}`,
@@ -38,7 +38,7 @@ export const postTrainerDto = async (request: TrainerDto) => {
 
 export const getClientDto = async () => {
     const auth = storeAuth(ACTIONS.GET, null);
-    const response = await fetch('http://localhost:8081/user/client', {
+    const response = await fetch(`${process.env.REACT_APP_USER_URL}/user/client`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${auth.access_token}`,

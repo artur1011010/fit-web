@@ -113,7 +113,7 @@ export function TrainerCard(prop: {
                     <Button size="small" onClick={() => setOpenModal1(true)}>Wiecej</Button>
                     <Button size="small" onClick={() => setOpenModal2(true)}>Kontakt</Button>
                     <Tooltip title="Udostępnij">
-                        <IconButton aria-label="share">
+                        <IconButton aria-label="share" href='mailto:someone@example.com?subject=Zobacz tego trenera&body=link do strony trenera'>
                             <ShareIcon/>
                         </IconButton>
                     </Tooltip>
