@@ -94,6 +94,8 @@ export function Trainings() {
                     return true;
                 }else if (!isBlank(element.title) && element.title.toLowerCase().includes(value.toLowerCase())) {
                     return true;
+                }else if (!isBlank(element.startTime) && element.startTime.toLowerCase().includes(value.toLowerCase())) {
+                    return true;
                 }
                 return false;
             });

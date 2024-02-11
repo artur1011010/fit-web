@@ -165,11 +165,11 @@ function ResponsiveAppBar() {
                                 }}
                             >
                                 {pages.map((page) => (
-                                    <Container key={page.definition} sx={{display: 'flex', flexDirection: 'row'}}>
-                                        <SearchIcon key={page.definition} sx={{mt: 2}}></SearchIcon>
+                                    <Container key={`${page.definition}4`} sx={{display: 'flex', flexDirection: 'row'}}>
+                                        <SearchIcon key={`${page.definition}5`} sx={{mt: 2}}></SearchIcon>
                                         <Button
                                             component={getLink(page.site)}
-                                            key={page.definition}
+                                            key={`${page.definition}6`}
                                             onClick={handleCloseNavMenu}
                                             sx={{my: 2, color: 'white', display: 'block'}}
                                         >
@@ -200,11 +200,11 @@ function ResponsiveAppBar() {
                         </Typography>
                         <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                             {pages.map((page) => (
-                                <Fragment key={page.definition}>
-                                    <SearchIcon key={page.definition} sx={{mt: 3, ml: 2}}></SearchIcon>
+                                <Fragment key={`${page.definition}1`}>
+                                    <SearchIcon key={`${page.definition}2`} sx={{mt: 3, ml: 2}}></SearchIcon>
                                     <Button
                                         component={getLink(page.site)}
-                                        key={page.definition}
+                                        key={`${page.definition}3`}
                                         onClick={handleCloseNavMenu}
                                         sx={{my: 2, color: 'white', display: 'block'}}
                                     >

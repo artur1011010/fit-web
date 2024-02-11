@@ -5,11 +5,11 @@ import Grid from "@mui/material/Grid";
 import {isBlank} from "../../commons/Commons";
 import Box from "@mui/material/Box";
 
-function getTrainerSkeleton(): React.JSX.Element {
+function getTrainerSkeleton(key: number): React.JSX.Element {
     return (
-        <Stack spacing={2} sx={{m: 1}}>
+        <Stack key={key} spacing={2} sx={{m: 1}}>
             <Box sx={{display: 'flex', flexDirection: 'row'}}>
-                <Skeleton variant="circular" width={45} height={45} sx={{mt: 1, ml:1}}/>
+                <Skeleton variant="circular" width={45} height={45} sx={{mt: 1, ml: 1}}/>
                 <Stack spacing={2} sx={{ml: 3}}>
                     <Skeleton variant="text" width={180} sx={{fontSize: '1rem', mt: 2}}/>
                 </Stack>
@@ -28,15 +28,21 @@ export function Trainers() {
 
     const url = `${process.env.REACT_APP_USER_URL}/trainer?active=true`;
 
-    const getTrainersList = () => {
-        return fetch(url)
-            .then((res) => res.json())
-            .then((d) => {
-                setRenderSkeleton(false)
-                setTrainersList(d)
-                setTrainersTempList(d)
-            });
-    }
+    const getTrainersList = async () => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Fetch failed with code: ${response.status} body: ${response.body}`);
+            }
+            const data = await response.json();
+            setTrainersList(data);
+            setTrainersTempList(data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setRenderSkeleton(false);
+        }
+    };
 
     useEffect(() => {
         getTrainersList();
@@ -64,7 +70,7 @@ export function Trainers() {
     const renderSkeletonList = () => {
         let result: React.JSX.Element[] = [];
         for (let i = 0; i < 8; i++) {
-            result.push(getTrainerSkeleton())
+            result.push(getTrainerSkeleton(i))
         }
         return result;
     }
