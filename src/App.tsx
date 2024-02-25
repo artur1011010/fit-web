@@ -16,6 +16,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import RootLayout from "./RootLayout";
 import TrainerDetails from "./components/trainers/TrainerDetails";
+import {Admin} from "./components/main/Admin";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
             <Route path="trainings" element={<Trainings/>}></Route>
             <Route path="logout" element={<Logout/>}></Route>
             <Route path="trainers" element={<Trainers/>}></Route>
+            <Route path="admin" element={<Admin/>}></Route>
             <Route path="trainers/trainer" element={<TrainerDetails/>}>
                 <Route
                 path=":id"

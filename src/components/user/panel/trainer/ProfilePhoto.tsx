@@ -23,7 +23,6 @@ const ProfilePhoto = (prop: {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-
                     const blob = await response.blob();
                     const url = URL.createObjectURL(blob);
                     setImageUrl(url);
@@ -37,7 +36,7 @@ const ProfilePhoto = (prop: {
 
     return (
         <div>
-            {imageUrl ? <img style={imgStyle} src={imageUrl} alt="Pobrane zdjęcie" /> : <p>Ładowanie zdjęcia...</p>}
+            {imageUrl ? <img style={imgStyle} src={imageUrl} alt="Pobrane zdjęcie" /> : null}
         </div>
     );
 };

@@ -32,6 +32,14 @@ export const storeAuth = (action: ACTIONS, payload : AuthDto | null) : AuthDto =
 export const isUserLogged = () : boolean =>{
     return storeAuth(ACTIONS.GET, null).isLogged;
 }
+const AUTH_STORAGE_KEY = "auth_storage"
+
+export enum ACTIONS {
+    SAVE = "SAVE",
+    CLEAR = "CLEAR",
+    GET = "GET"
+}
+
 
 function getEmptyAuthDto () : AuthDto {
     const authDto: AuthDto = {
@@ -42,13 +50,4 @@ function getEmptyAuthDto () : AuthDto {
 
 function parseJsonToAuthDto (json : string): AuthDto {
     return JSON.parse(json);
-}
-
-const AUTH_STORAGE_KEY = "auth_storage"
-
-export enum ACTIONS {
-    SAVE = "SAVE",
-    CLEAR = "CLEAR",
-    GET = "GET",
-    UPDATE = "UPDATE"
 }

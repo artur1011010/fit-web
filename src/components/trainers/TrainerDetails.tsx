@@ -115,7 +115,9 @@ export default function TrainerDetails() {
                         <Typography align='left' sx={{fontSize: 15}} color="text.secondary">
                             {trainerDetails?.specializations}
                         </Typography>
+                        <Divider sx={{my: 2}}/>
                         <ProfilePhoto email={trainerDetails?.email}></ProfilePhoto>
+                        <Divider sx={{my: 2}}/>
                         <Typography align='left' variant='h5' sx={{my: 2}} color="text.secondary">
                             Opinie
                         </Typography>
